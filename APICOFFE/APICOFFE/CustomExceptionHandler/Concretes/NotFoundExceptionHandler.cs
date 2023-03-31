@@ -1,0 +1,17 @@
+﻿using APICOFFE.CustomExceptionHandler.Abstracts;
+using APICOFFE.DTOs;
+using APICOFFE.Exceptions;
+using System.Net;
+using System.Net.Mime;
+
+namespace APICOFFE.CustomExceptionHandler.Concretes;
+
+public class NotFoundExceptionHandler : IExceptionHandler
+{
+    public ExceptionResultDto Handle(ApplicationException exception)
+    {
+        var notFoundException = (NotFoundException)exception;
+
+        return new ExceptionResultDto(MediaTypeNames.Text.Plain, (int)HttpStatusCode.NotFound, notFoundException.Message);
+    }
+}
