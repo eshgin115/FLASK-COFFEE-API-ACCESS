@@ -23,13 +23,13 @@ namespace APICOFFE.Admin.Controllers
             _discoverMenuService = discoverMenuService;
         }
         [HttpGet("discovermenu/getsingle")]
-        public async Task<IActionResult> UpdateAsync()
+        public async Task<IActionResult> GetAsync()
         {
             return Ok(await _discoverMenuService.GetAsync());
         }
         [HttpPut("discovermenu/update")]
 
-        public async Task<IActionResult> UpdateAsync([FromForm]DiscoverMenuUpdateRequsetDto dto)
+        public async Task<IActionResult> UpdateAsync([FromForm] DiscoverMenuUpdateRequsetDto dto)
         {
             return Ok(await _discoverMenuService.UpdateAsync(dto));
         }

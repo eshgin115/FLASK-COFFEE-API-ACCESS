@@ -35,20 +35,39 @@ namespace APICOFFE.Services.Services
 
             var navbar = _mapper.Map<Navbar>(dto);
 
-            await _dataContext.Navbars.AddAsync(_mapper.Map<Navbar>(dto));
+            await _dataContext.Navbars.AddAsync(navbar);
+
+            await _dataContext.SaveChangesAsync();
+
+
+            return _mapper.Map<NavbarListItemDto>(navbar);
+        }
+
+        public async Task<NavbarListItemDto> UpdateAsync(int id, NavbarUpdateDto dto)
+        {
+            var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == id)
+                ?? throw new NotFoundException("Navbar", id);
+
+
+
+            if (!_dataContext.Navbars.Any(n => n.Id == id) && !(dto.Order == navbar.Order))
+                throw new ExistException("This order used another navbar");
+
+            _mapper.Map(dto, navbar);
+
 
             await _dataContext.SaveChangesAsync();
 
             return _mapper.Map<NavbarListItemDto>(navbar);
         }
+        public async Task DeleteAsync(int id)
+        {
+            var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == id)
+                ?? throw new NotFoundException("Navbar", id);
 
-        public Task<NavbarListItemDto> UpdateAsync(int id, NavbarUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
+            _dataContext.Navbars.Remove(navbar);
+
+            await _dataContext.SaveChangesAsync();
         }
 
     }

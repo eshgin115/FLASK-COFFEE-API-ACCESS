@@ -38,61 +38,21 @@ public class NavbarController : ControllerBase
     }
     #endregion
 
+    #region Update
 
-    #region update
-    [HttpGet("update/{id}", Name = "admin-navbar-update")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] int id)
+    [HttpPut("navbar/update/{id}")]
+    public async Task<IActionResult> UpdateAsync(int id, NavbarUpdateDto dto)
     {
-        var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == id);
-
-
-        if (navbar is null) return NotFound();
-
-
-        return View(_mapper.Map<UpdateViewModel>(navbar));
-
-    }
-    [HttpPost("update/{id}", Name = "admin-navbar-update")]
-    public async Task<IActionResult> UpdateAsync(UpdateViewModel model)
-    {
-        var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == model.Id);
-        if (navbar is null) return NotFound();
-
-
-
-        if (!ModelState.IsValid) return View(model);
-
-
-
-
-        if (!_dataContext.Navbars.Any(n => n.Id == model.Id) && !(model.Order == navbar.Order)) return View(model);
-
-        _mapper.Map(model, navbar);
-
-
-        await _dataContext.SaveChangesAsync();
-
-        return RedirectToRoute("admin-navbar-list");
-
-
-
+        return Ok(await _navbarService.UpdateAsync(id, dto));
     }
     #endregion
     #region delete
-    [HttpPost("delete/{id}", Name = "admin-navbar-delete")]
-    public async Task<IActionResult> DeleteAsync(UpdateViewModel model)
+    [HttpDelete("navbar/delete/{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
     {
-        var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == model.Id);
-        if (navbar is null) return NotFound();
+        await _navbarService.DeleteAsync(id);
 
-
-        _dataContext.Navbars.Remove(navbar);
-        await _dataContext.SaveChangesAsync();
-
-
-
-        return RedirectToRoute("admin-navbar-list");
-
+        return NoContent();
     }
     #endregion
 }
