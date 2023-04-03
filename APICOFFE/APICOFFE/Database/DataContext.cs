@@ -23,7 +23,7 @@ namespace FLASK_COFFEE_API.Database
         //public DbSet<Order> Orders { get; set; }
         //public DbSet<Contact> Contacts { get; set; }
         //public DbSet<WelcomeSlider> WelcomeSliders { get; set; }
-        //public DbSet<ShortInfo> ShortInfo { get; set; }
+        public DbSet<ShortInfo> ShortInfo { get; set; }
         public DbSet<Navbar> Navbars { get; set; }
         public DbSet<Subnavbar> Subnavbars { get; set; }
         //public DbSet<OurHistory> OurHistory { get; set; }

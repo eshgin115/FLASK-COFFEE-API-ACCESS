@@ -1,12 +1,11 @@
 ﻿using APICOFFE.Admin.Dtos.Navbar;
 
-namespace APICOFFE.Services.Concretes
+namespace APICOFFE.Services.Concretes;
+
+public interface INavbarService
 {
-    public interface INavbarService
-    {
-        Task<List<NavbarListItemDto>> ListAsync();
-        Task<NavbarListItemDto> AddAsync(NavbarCreateDto dto);
-        Task<NavbarListItemDto> UpdateAsync(int id, NavbarUpdateDto dto);
-        Task DeleteAsync(int id);
-    }
+    Task<List<NavbarListItemDto>> ListAsync();
+    Task<NavbarListItemDto> AddAsync(NavbarCreateDto dto);
+    Task<NavbarListItemDto> UpdateAsync(int id, NavbarUpdateDto dto);
+    Task DeleteAsync(int id);
 }
