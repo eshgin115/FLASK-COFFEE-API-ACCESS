@@ -13,14 +13,19 @@ public class ShortInfoController : ControllerBase
         _shortInfoService = shortInfoService;
     }
 
+    #region Get
     [HttpGet("shortInfo/Get")]
     public async Task<IActionResult> GetAsync()
     {
         return Ok(await _shortInfoService.GetAsync());
     }
+    #endregion
+
+    #region Update
     [HttpPut("shortInfo/update")]
     public async Task<IActionResult> UpdateAsync(ShortInfoUpdateDto dto)
     {
         return Ok(await _shortInfoService.UpdateAsync(dto));
     }
+    #endregion
 }

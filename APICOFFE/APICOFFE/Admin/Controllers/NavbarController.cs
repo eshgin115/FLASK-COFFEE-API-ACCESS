@@ -27,7 +27,6 @@ public class NavbarController : ControllerBase
     }
     #endregion
 
-
     #region add
 
     [HttpPost("navbar/add")]
@@ -46,6 +45,7 @@ public class NavbarController : ControllerBase
         return Ok(await _navbarService.UpdateAsync(id, dto));
     }
     #endregion
+
     #region delete
     [HttpDelete("navbar/delete/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)

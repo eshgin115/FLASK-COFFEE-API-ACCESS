@@ -17,6 +17,8 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<INavbarService, NavbarService>();
             services.AddScoped<ISubnavbarService, SubnavbarService>();
             services.AddScoped<IShortInfoService, ShortInfoService>();
+            services.AddScoped<IWelcomeSliderService, WelcomeSliderService>();
+            services.AddScoped<IPaymentBenefitsService, PaymentBenefitsService>();
 
             //services.AddScoped<IEmailService, SMTPService>();
             //services.AddScoped<IUserService, UserService>();

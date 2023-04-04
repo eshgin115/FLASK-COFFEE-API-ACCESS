@@ -23,7 +23,7 @@ public class SubnavbarService : ISubnavbarService
 
     public async Task<List<SubnavbarListItemDto>> ListAsync()
     {
-        var subnavbars = await _dataContext.Subnavbars.Include(s => s.Navbar).ToListAsync();
+        var subnavbars = await _dataContext.Subnavbars.Include(s => s.Navbar).AsNoTracking().ToListAsync();
         return _mapper.Map<List<SubnavbarListItemDto>>(subnavbars);
     }
     public async Task<SubnavbarListItemDto> AddAsync(SubnavbarCreateDto dto)

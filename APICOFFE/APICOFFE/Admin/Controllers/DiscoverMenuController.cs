@@ -22,16 +22,21 @@ namespace APICOFFE.Admin.Controllers
         {
             _discoverMenuService = discoverMenuService;
         }
+        #region Get
         [HttpGet("discovermenu/getsingle")]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await _discoverMenuService.GetAsync());
         }
+        #endregion
+
+        #region Update
         [HttpPut("discovermenu/update")]
 
         public async Task<IActionResult> UpdateAsync([FromForm] DiscoverMenuUpdateRequsetDto dto)
         {
             return Ok(await _discoverMenuService.UpdateAsync(dto));
         }
+        #endregion
     }
 }

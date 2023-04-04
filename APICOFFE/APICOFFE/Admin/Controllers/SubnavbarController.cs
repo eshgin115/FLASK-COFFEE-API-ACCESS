@@ -15,12 +15,14 @@ namespace APICOFFE.Admin.Controllers
         {
             _subnavbarService = subnavbarService;
         }
-
+        #region List
         [HttpGet("subnavbar/list")]
         public async Task<IActionResult> ListAsync()
         {
             return Ok(await _subnavbarService.ListAsync());
         }
+        #endregion
+
         #region Add
         [HttpPost("subnavbar/add")]
         public async Task<IActionResult> AddAsync(SubnavbarCreateDto dto)
@@ -29,6 +31,7 @@ namespace APICOFFE.Admin.Controllers
         }
 
         #endregion
+
         #region Update
         [HttpPut("subnavbar/update/{id}")]
         public async Task<IActionResult> UpdateAsync(int id, SubnavbarUpdateDto dto)
@@ -37,6 +40,7 @@ namespace APICOFFE.Admin.Controllers
         }
 
         #endregion
+
         #region delete
         [HttpDelete("subnavbar/delete/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
