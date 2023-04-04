@@ -27,7 +27,7 @@ namespace FLASK_COFFEE_API.Database
         public DbSet<ShortInfo> ShortInfo { get; set; }
         public DbSet<Navbar> Navbars { get; set; }
         public DbSet<Subnavbar> Subnavbars { get; set; }
-        //public DbSet<OurHistory> OurHistory { get; set; }
+        public DbSet<OurHistory> OurHistory { get; set; }
         public DbSet<PaymentBenefits> PaymentBenefits { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
         //public DbSet<FoodSize> FoodSizes { get; set; }
