@@ -1,6 +1,6 @@
 ﻿using APICOFFE.Database.Models.Common;
 
-namespace APICOFFE.Database;
+namespace APICOFFE.Database.Models;
 
 public class WelcomeSlider : BaseEntity<int>, IAuditable
 {

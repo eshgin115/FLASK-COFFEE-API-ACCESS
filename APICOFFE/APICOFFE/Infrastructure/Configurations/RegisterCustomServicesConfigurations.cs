@@ -11,7 +11,7 @@ namespace APICOFFE.Infrastructure.Configurations
         public static void RegisterCustomServices(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddScoped<IFileService, FileService>();
+            services.AddSingleton<IFileService, FileService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IDiscoverMenuService, DiscoverMenuService>();
             services.AddScoped<INavbarService, NavbarService>();
@@ -23,15 +23,15 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<ITagService, TagService>();
 
-            //services.AddScoped<IEmailService, SMTPService>();
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, SMTPService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserActivationService, UserActivationService>();
             //services.AddScoped<IBasketService, BasketService>();
             //services.AddSingleton<IFileService, FileService>();
             //services.AddScoped<INotificationService, NotificationService>();
             //services.AddScoped<IFoodService, FoodService>();
             //services.AddScoped<IDrinkService, DrinkService>();
             //services.AddScoped<IOrderService, OrderService>();
-            //services.AddScoped<IUserActivationService, UserActivationService>();
             //services.AddScoped<IsAuthenticated>();
         }
     }

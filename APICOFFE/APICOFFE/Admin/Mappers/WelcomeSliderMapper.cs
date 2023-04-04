@@ -1,5 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.WelcomeSlider;
-using APICOFFE.Database;
+using APICOFFE.Database.Models;
 using AutoMapper;
 
 namespace APICOFFE.Admin.Mappers;

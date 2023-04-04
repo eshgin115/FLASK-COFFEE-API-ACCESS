@@ -1,6 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.WelcomeSlider;
 using APICOFFE.Contracts.File;
-using APICOFFE.Database;
+using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
