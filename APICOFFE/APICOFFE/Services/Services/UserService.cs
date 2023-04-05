@@ -117,7 +117,7 @@ public class UserService : IUserService
             signingCredentials: credentials
             );
 
-        return new JwtSecurityTokenHandler().WriteToken(tokenConfigurations); ;
+        return new JwtSecurityTokenHandler().WriteToken(tokenConfigurations); 
     }
 
     public async Task<string> SignInAsync(string? email, string? password, string? role = null)
@@ -148,15 +148,12 @@ public class UserService : IUserService
         ArgumentNullException.ThrowIfNull(dto);
         var user = _mapper.Map<User>(dto);
         await _dataContext.Users.AddAsync(user);
-        await _dataContext.Baskets.AddAsync(_mapper.Map<Basket>(user));
+        var basket = _mapper.Map<Basket>(user);
+        await _dataContext.Baskets.AddAsync(basket);
         await _userActivationService.SendActivationUrlAsync(user);
         await _dataContext.SaveChangesAsync();
     }
-    public async Task SignOutAsync()
-    {
-        await _httpContextAccessor.HttpContext!.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-    }
-
+  
 
     public async Task<bool> CheckEmailConfirmedAsync(string? email)
     {

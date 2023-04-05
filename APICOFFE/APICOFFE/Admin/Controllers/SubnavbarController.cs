@@ -1,12 +1,16 @@
 ﻿using APICOFFE.Admin.Dtos.Subnavbar;
+using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
 using FLASK_COFFEE_API.Database;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers
 {
     [ApiController]
+    //[Authorize(Roles = RoleNames.ADMIN)]
+
     public class SubnavbarController : ControllerBase
     {
         private readonly ISubnavbarService _subnavbarService;

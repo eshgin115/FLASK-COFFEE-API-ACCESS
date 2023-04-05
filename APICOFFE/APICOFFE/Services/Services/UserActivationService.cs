@@ -13,7 +13,7 @@ public class UserActivationService : IUserActivationService
     private readonly IEmailService _emailService;
     private readonly IUrlHelper _urlHelper;
     private readonly DateTime _activationExpireDate;
-    private const string EMAIL_CONFIRMATION_ROUTE_NAME = "client-auth-activate";
+    private const string EMAIL_CONFIRMATION_ROUTE_NAME = "auth-activate";
 
 
     public UserActivationService(
@@ -57,7 +57,7 @@ public class UserActivationService : IUserActivationService
     private string GenerateUrl(string token, string routeName)
     {
         var request = _httpContextAccessor.HttpContext!.Request;
-        return _urlHelper.RouteUrl(routeName, new { token }, request.Scheme, request.Host.Value)!;
+        return _urlHelper.RouteUrl(routeName, new { token = token }, request.Scheme, request.Host.Value)!;
     }
 
     private async Task<UserActivation> CreateUserActivationAsync(User user, string token, string activationUrL, DateTime expireDate)

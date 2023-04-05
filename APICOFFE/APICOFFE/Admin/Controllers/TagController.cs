@@ -1,9 +1,13 @@
 ﻿using APICOFFE.Admin.Dtos.Tag;
+using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+//[Authorize(Roles = RoleNames.ADMIN)]
+
 public class TagController : ControllerBase
 {
     private readonly ITagService _TagService;

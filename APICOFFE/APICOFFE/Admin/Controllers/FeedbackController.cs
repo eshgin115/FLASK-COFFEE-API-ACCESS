@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.FeedBack;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
 using FLASK_COFFEE_API.Database;
@@ -10,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 namespace APICOFFE.Admin.Controllers;
 
 [ApiController]
+//[Authorize(Roles = RoleNames.ADMIN)]
+
 public class FeedbackController : ControllerBase
 {
     private readonly IFeedbackService _feedbackService;

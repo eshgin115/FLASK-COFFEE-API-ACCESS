@@ -26,6 +26,7 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<IEmailService, SMTPService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserActivationService, UserActivationService>();
+            services.AddScoped<IDrinkCategoryService, DrinkCategoryService>();
             //services.AddScoped<IBasketService, BasketService>();
             //services.AddSingleton<IFileService, FileService>();
             //services.AddScoped<INotificationService, NotificationService>();

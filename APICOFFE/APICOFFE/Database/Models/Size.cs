@@ -9,7 +9,7 @@ public class Size : BaseEntity<int>
     public DateTime UpdatedAt { get; set; }
 
     //public List<FoodSize>? FoodSizes { get; set; }
-    //public List<DrinkSize>? DrinkSizes { get; set; }
+    public List<DrinkSize>? DrinkSizes { get; set; }
     //public List<BasketProduct>? BasketProducts { get; set; }
     //public List<OrderProduct>? OrderProducts { get; set; }
 }

@@ -17,7 +17,9 @@ namespace APICOFFE.Infrastructure.Extensions
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+
+
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapGet("/not-found-example", () =>
             {

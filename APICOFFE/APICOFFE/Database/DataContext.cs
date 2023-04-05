@@ -36,7 +36,7 @@ namespace FLASK_COFFEE_API.Database
         //public DbSet<FoodCategory> FoodCategories { get; set; }
         //public DbSet<FoodImage> FoodImages { get; set; }
         //public DbSet<Drink> Drinks { get; set; }
-        //public DbSet<DrinkCategory> DrinkCategories { get; set; }
+        public DbSet<DrinkCategory> DrinkCategories { get; set; }
         //public DbSet<DrinkSize> DrinkSizes { get; set; }
         //public DbSet<DrinkTag> DrinkTags { get; set; }
         public DbSet<DiscoverMenu> DiscoverMenu { get; set; }

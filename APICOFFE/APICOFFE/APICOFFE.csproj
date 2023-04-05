@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Admin\Validators\" />
-    <Folder Include="Client\Mappers\" />
     <Folder Include="Client\Validators\" />
   </ItemGroup>
 

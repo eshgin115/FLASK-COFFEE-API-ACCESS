@@ -1,9 +1,11 @@
 ﻿using APICOFFE.Admin.Dtos.Navbar;
+using APICOFFE.Contracts.Identity;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
 using FLASK_COFFEE_API.Database;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 namespace APICOFFE.Admin.Controllers;
 
 [ApiController]
+//[Authorize(Roles = RoleNames.ADMIN)]
+
 public class NavbarController : ControllerBase
 {
     private readonly INavbarService _navbarService;

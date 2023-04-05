@@ -12,6 +12,6 @@ public interface IUserService
     Task<string> SignInAsync(int id, string? role = null);
     Task<string> SignInAsync(string? email, string? password, string? role = null);
     Task CreateAsync(RegisterDto dto);
-    Task SignOutAsync();
+  
     Task<bool> CheckEmailConfirmedAsync(string? email);
 }
