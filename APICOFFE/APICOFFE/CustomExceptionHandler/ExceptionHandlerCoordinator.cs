@@ -1,7 +1,7 @@
-﻿using APICOFFE.Contracts.DTOs;
-using APICOFFE.Exceptions;
+﻿using APICOFFE.Exceptions;
 using APICOFFE.CustomExceptionHandler.Abstracts;
 using APICOFFE.CustomExceptionHandler.Concretes;
+using APICOFFE.DTOs;
 
 namespace APICOFFE.CustomExceptionHandler;
 

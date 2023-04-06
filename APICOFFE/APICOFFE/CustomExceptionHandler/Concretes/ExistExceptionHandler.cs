@@ -8,7 +8,7 @@ namespace APICOFFE.CustomExceptionHandler.Concretes;
 
 public class ExistExceptionHandler : IExceptionHandler
 {
-    public ExceptionResultDto Handle(ApplicationException exception)
+    public ExceptionResultDto Handle(Exception exception)
     {
         var notFoundException = (ExistException)exception;
 

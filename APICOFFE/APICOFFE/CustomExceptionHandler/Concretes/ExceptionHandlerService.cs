@@ -20,7 +20,7 @@ public class ExceptionHandlerService
         _exceptionHandlers[typeof(T)] = handler;
     }
 
-    public ExceptionResultDto Handle(ApplicationException exception)
+    public ExceptionResultDto Handle(Exception exception)
     {
         ArgumentNullException.ThrowIfNull(exception);
 
