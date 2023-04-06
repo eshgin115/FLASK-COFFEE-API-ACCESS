@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.Net.Http.Headers;
 using APICOFFE.Infrastructure.Configurations;
 using APICOFFE.Extensions;
+using APICOFFE.CustomExceptionHandler.Concretes;
+using APICOFFE.CustomExceptionHandler;
 
 namespace APICOFFE.Infrastructure.Extensions;
 
@@ -30,6 +32,14 @@ public static class ServiceCollectionExtensions
 
         services.AddAutoMapper(typeof(Program));
         services.AddHttpContextAccessor();
+        services.AddScoped<BadRequestExceptionHandler>();
+        services.AddScoped<ExistExceptionHandler>();
+        services.AddScoped<ForbiddenExceptionHandler>();
+        services.AddScoped<GeneralExceptionHandler>();
+        services.AddScoped<NotFoundExceptionHandler>();
+        services.AddScoped<UnauthorizedExceptionHandler>();
+        services.AddScoped<ValidationExceptionHandler>();
+        services.AddScoped<ExceptionHandlerCoordinator>();
 
         services.AddUrlHelper();
         services.AddSignalR();

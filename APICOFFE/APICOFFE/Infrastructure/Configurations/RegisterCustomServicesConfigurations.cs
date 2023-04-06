@@ -29,10 +29,8 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<IDrinkService, DrinkService>();
             services.AddScoped<IFoodCategoryService, FoodCategoryService>();
             //services.AddScoped<IBasketService, BasketService>();
-            //services.AddSingleton<IFileService, FileService>();
             //services.AddScoped<INotificationService, NotificationService>();
-            //services.AddScoped<IFoodService, FoodService>();
-            //services.AddScoped<IDrinkService, DrinkService>();
+            services.AddScoped<IFoodService, FoodService>();
             //services.AddScoped<IOrderService, OrderService>();
             //services.AddScoped<IsAuthenticated>();
         }
