@@ -17,8 +17,6 @@ namespace APICOFFE.Infrastructure.Extensions
 
             app.UseHttpsRedirection();
 
-
-
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapGet("/not-found-example", () =>
@@ -44,6 +42,10 @@ namespace APICOFFE.Infrastructure.Extensions
             app.MapGet("/validation-request-example", () =>
             {
                 throw new ValidationException("Only only admin is allowed");
+            });
+            app.MapGet("/unregistered-exception", () =>
+            {
+                throw new MyException();
             });
 
             app.MapControllers();
