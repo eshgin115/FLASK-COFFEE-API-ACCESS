@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.DrinkCategory;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+[Route("drink-category")]
+
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class DrinkCategoryController : ControllerBase
@@ -18,7 +21,7 @@ public class DrinkCategoryController : ControllerBase
     }
 
     #region List
-    [HttpGet("DrinkCategory/list")]
+    [HttpGet("drink-categories")]
     public async Task<IActionResult> ListAsync()
     {
 
@@ -29,7 +32,7 @@ public class DrinkCategoryController : ControllerBase
 
     #region Add
 
-    [HttpPost("DrinkCategory/add")]
+    [HttpPost("drink-category")]
     public async Task<IActionResult> AddAsync([FromForm] DrinkCategoryCreateDto dto)
     {
         return Created(string.Empty, await _drinkCategoryService.AddAsync(dto));
@@ -38,7 +41,7 @@ public class DrinkCategoryController : ControllerBase
 
     #region Update
 
-    [HttpPut("DrinkCategory/update/{id}")]
+    [HttpPut("drink-category/{id}")]
     public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromForm] DrinkCategoryUpdateDto dto)
     {
         return Ok(await _drinkCategoryService.UpdateAsync(id, dto));
@@ -47,7 +50,7 @@ public class DrinkCategoryController : ControllerBase
 
     #region Delete
 
-    [HttpDelete("DrinkCategory/delete/{id}")]
+    [HttpDelete("drink-category/{id}")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)
     {
         await _drinkCategoryService.DeleteAsync(id);

@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.Size;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+[Route("size")]
+
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class SizeController : ControllerBase
@@ -17,7 +20,7 @@ public class SizeController : ControllerBase
         _SizeService = sizeService;
     }
     #region List
-    [HttpGet("Size/list")]
+    [HttpGet("sizes")]
     public async Task<IActionResult> ListAsync()
     {
         return Ok(await _SizeService.ListAsync());
@@ -25,7 +28,7 @@ public class SizeController : ControllerBase
     #endregion
 
     #region Add
-    [HttpPost("Size/add")]
+    [HttpPost("size")]
     public async Task<IActionResult> AddAsync([FromForm] SizeCreateDto dto)
     {
         return Created(string.Empty, await _SizeService.AddAsync(dto));
@@ -33,7 +36,7 @@ public class SizeController : ControllerBase
     #endregion
 
     #region Update
-    [HttpPut("Size/update/{id}")]
+    [HttpPut("size/{id}")]
     public async Task<IActionResult> UpdateAsync(int id, [FromForm] SizeUpdateDto dto)
     {
         return Ok(await _SizeService.UpdateAsync(id, dto));
@@ -41,7 +44,7 @@ public class SizeController : ControllerBase
     #endregion
 
     #region Delete
-    [HttpDelete("Size/delete/{id}")]
+    [HttpDelete("Size/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _SizeService.DeleteAsync(id);

@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.WelcomeSlider;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+[Route("welcome-slider")]
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class WelcomeSliderController : ControllerBase
@@ -17,7 +19,7 @@ public class WelcomeSliderController : ControllerBase
         _welcomeSliderService = welcomeSliderService;
     }
     #region List
-    [HttpGet("welcomeSlider/list")]
+    [HttpGet("welcome-slideries")]
     public async Task<IActionResult> ListAsync()
     {
         return Ok(await _welcomeSliderService.ListAsync());
@@ -25,7 +27,7 @@ public class WelcomeSliderController : ControllerBase
     #endregion
 
     #region Add
-    [HttpPost("welcomeSlider/add")]
+    [HttpPost("welcome-slider")]
     public async Task<IActionResult> AddAsync([FromForm] WelcomeSliderCreateDto dto)
     {
         return Created(string.Empty, await _welcomeSliderService.AddAsync(dto));
@@ -33,7 +35,7 @@ public class WelcomeSliderController : ControllerBase
     #endregion
 
     #region Update
-    [HttpPut("welcomeSlider/update/{id}")]
+    [HttpPut("welcome-slider/{id}")]
     public async Task<IActionResult> UpdateAsync(int id, [FromForm] WelcomeSliderUpdateDto dto)
     {
         return Ok(await _welcomeSliderService.UpdateAsync(id, dto));
@@ -41,7 +43,7 @@ public class WelcomeSliderController : ControllerBase
     #endregion
 
     #region Delete
-    [HttpDelete("welcomeSlider/delete/{id}")]
+    [HttpDelete("welcome-slider/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _welcomeSliderService.DeleteAsync(id);

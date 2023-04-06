@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.Subnavbar;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace APICOFFE.Admin.Controllers
 {
     [ApiController]
+    [Route("subnavbar")]
+
     //[Authorize(Roles = RoleNames.ADMIN)]
 
     public class SubnavbarController : ControllerBase
@@ -20,7 +23,7 @@ namespace APICOFFE.Admin.Controllers
             _subnavbarService = subnavbarService;
         }
         #region List
-        [HttpGet("subnavbar/list")]
+        [HttpGet("subnavbars")]
         public async Task<IActionResult> ListAsync()
         {
             return Ok(await _subnavbarService.ListAsync());
@@ -28,7 +31,7 @@ namespace APICOFFE.Admin.Controllers
         #endregion
 
         #region Add
-        [HttpPost("subnavbar/add")]
+        [HttpPost("subnavbar")]
         public async Task<IActionResult> AddAsync(SubnavbarCreateDto dto)
         {
             return Created(string.Empty, await _subnavbarService.AddAsync(dto));
@@ -37,7 +40,7 @@ namespace APICOFFE.Admin.Controllers
         #endregion
 
         #region Update
-        [HttpPut("subnavbar/update/{id}")]
+        [HttpPut("subnavbar/{id}")]
         public async Task<IActionResult> UpdateAsync(int id, SubnavbarUpdateDto dto)
         {
             return Ok(await _subnavbarService.UpdateAsync(id, dto));
@@ -46,7 +49,7 @@ namespace APICOFFE.Admin.Controllers
         #endregion
 
         #region delete
-        [HttpDelete("subnavbar/delete/{id}")]
+        [HttpDelete("subnavbar/{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             await _subnavbarService.DeleteAsync(id);

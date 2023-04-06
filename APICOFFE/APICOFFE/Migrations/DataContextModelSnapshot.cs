@@ -64,6 +64,18 @@ namespace APICOFFE.Migrations
                     b.Property<int?>("DrinkId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QuantityDrink")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QuantityFood")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SizeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -72,6 +84,10 @@ namespace APICOFFE.Migrations
                     b.HasIndex("BasketId");
 
                     b.HasIndex("DrinkId");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("SizeId");
 
                     b.ToTable("BasketProducts", (string)null);
                 });
@@ -281,6 +297,136 @@ namespace APICOFFE.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("FeedBacks", (string)null);
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.Food", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FoodCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsVegan")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodCategoryId");
+
+                    b.ToTable("Foods", (string)null);
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoodCategories", (string)null);
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageNameInFileSystem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.ToTable("PlantImages", (string)null);
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodSize", b =>
+                {
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodId", "SizeId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("FoodSizes", (string)null);
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodTag", b =>
+                {
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("FoodTags", (string)null);
                 });
 
             modelBuilder.Entity("APICOFFE.Database.Models.Navbar", b =>
@@ -744,11 +890,25 @@ namespace APICOFFE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("APICOFFE.Database.Models.Drink", null)
+                    b.HasOne("APICOFFE.Database.Models.Drink", "Drink")
                         .WithMany("BasketProducts")
                         .HasForeignKey("DrinkId");
 
+                    b.HasOne("APICOFFE.Database.Models.Food", "Food")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("FoodId");
+
+                    b.HasOne("APICOFFE.Database.Models.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId");
+
                     b.Navigation("Basket");
+
+                    b.Navigation("Drink");
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("APICOFFE.Database.Models.DiscoverMenuImage", b =>
@@ -820,6 +980,66 @@ namespace APICOFFE.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("APICOFFE.Database.Models.Food", b =>
+                {
+                    b.HasOne("APICOFFE.Database.Models.FoodCategory", "FoodCategory")
+                        .WithMany("Foods")
+                        .HasForeignKey("FoodCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodCategory");
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodImage", b =>
+                {
+                    b.HasOne("APICOFFE.Database.Models.Food", "Food")
+                        .WithMany("FoodImages")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodSize", b =>
+                {
+                    b.HasOne("APICOFFE.Database.Models.Food", "Food")
+                        .WithMany("FoodSizes")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("APICOFFE.Database.Models.Size", "Size")
+                        .WithMany("FoodSizes")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodTag", b =>
+                {
+                    b.HasOne("APICOFFE.Database.Models.Food", "Food")
+                        .WithMany("FoodTags")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("APICOFFE.Database.Models.Tag", "Tag")
+                        .WithMany("FoodTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Food");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("APICOFFE.Database.Models.Subnavbar", b =>
                 {
                     b.HasOne("APICOFFE.Database.Models.Navbar", "Navbar")
@@ -875,6 +1095,22 @@ namespace APICOFFE.Migrations
                     b.Navigation("Drinks");
                 });
 
+            modelBuilder.Entity("APICOFFE.Database.Models.Food", b =>
+                {
+                    b.Navigation("BasketProducts");
+
+                    b.Navigation("FoodImages");
+
+                    b.Navigation("FoodSizes");
+
+                    b.Navigation("FoodTags");
+                });
+
+            modelBuilder.Entity("APICOFFE.Database.Models.FoodCategory", b =>
+                {
+                    b.Navigation("Foods");
+                });
+
             modelBuilder.Entity("APICOFFE.Database.Models.Navbar", b =>
                 {
                     b.Navigation("Subnavbars");
@@ -890,11 +1126,15 @@ namespace APICOFFE.Migrations
             modelBuilder.Entity("APICOFFE.Database.Models.Size", b =>
                 {
                     b.Navigation("DrinkSizes");
+
+                    b.Navigation("FoodSizes");
                 });
 
             modelBuilder.Entity("APICOFFE.Database.Models.Tag", b =>
                 {
                     b.Navigation("DrinkTags");
+
+                    b.Navigation("FoodTags");
                 });
 
             modelBuilder.Entity("APICOFFE.Database.Models.User", b =>

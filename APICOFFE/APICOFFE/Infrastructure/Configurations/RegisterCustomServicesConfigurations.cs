@@ -1,6 +1,6 @@
-﻿//using FLASK_COFFEE_API.Services.Concretes;
-//using FLASK_COFFEE_API.Services.Services;
-
+﻿
+using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Admin.Services.Services;
 using APICOFFE.Services.Concretes;
 using APICOFFE.Services.Services;
 
@@ -12,7 +12,7 @@ namespace APICOFFE.Infrastructure.Configurations
         {
 
             services.AddSingleton<IFileService, FileService>();
-            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IFeedbackSevice, FeedbackService>();
             services.AddScoped<IDiscoverMenuService, DiscoverMenuService>();
             services.AddScoped<INavbarService, NavbarService>();
             services.AddScoped<ISubnavbarService, SubnavbarService>();
@@ -22,11 +22,12 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<IOurHistoryService, OurHistoryService>();
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<ITagService, TagService>();
-
             services.AddScoped<IEmailService, SMTPService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserActivationService, UserActivationService>();
             services.AddScoped<IDrinkCategoryService, DrinkCategoryService>();
+            services.AddScoped<IDrinkService, DrinkService>();
+            services.AddScoped<IFoodCategoryService, FoodCategoryService>();
             //services.AddScoped<IBasketService, BasketService>();
             //services.AddSingleton<IFileService, FileService>();
             //services.AddScoped<INotificationService, NotificationService>();

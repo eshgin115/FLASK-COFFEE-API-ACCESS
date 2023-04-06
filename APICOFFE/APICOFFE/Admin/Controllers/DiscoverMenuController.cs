@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.DiscoverMenu;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Database.Models;
@@ -12,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 namespace APICOFFE.Admin.Controllers
 {
     [ApiController]
+    [Route("discover-menu")]
+
     //[Authorize(Roles = RoleNames.ADMIN)]
     public class DiscoverMenuController : ControllerBase
     {
@@ -23,7 +26,7 @@ namespace APICOFFE.Admin.Controllers
             _discoverMenuService = discoverMenuService;
         }
         #region Get
-        [HttpGet("discovermenu/getsingle")]
+        [HttpGet("discover-menu")]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await _discoverMenuService.GetAsync());
@@ -31,7 +34,7 @@ namespace APICOFFE.Admin.Controllers
         #endregion
 
         #region Update
-        [HttpPut("discovermenu/update")]
+        [HttpPut("discover-menu")]
 
         public async Task<IActionResult> UpdateAsync([FromForm] DiscoverMenuUpdateRequsetDto dto)
         {

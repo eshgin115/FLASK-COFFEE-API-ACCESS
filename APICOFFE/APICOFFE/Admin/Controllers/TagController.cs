@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.Tag;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+[Route("tag")]
+
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class TagController : ControllerBase
@@ -17,7 +20,7 @@ public class TagController : ControllerBase
         _TagService = tagService;
     }
     #region List
-    [HttpGet("Tag/list")]
+    [HttpGet("tags")]
     public async Task<IActionResult> ListAsync()
     {
         return Ok(await _TagService.ListAsync());
@@ -25,7 +28,7 @@ public class TagController : ControllerBase
     #endregion
 
     #region Add
-    [HttpPost("Tag/add")]
+    [HttpPost("tag")]
     public async Task<IActionResult> AddAsync([FromForm] TagCreateDto dto)
     {
         return Created(string.Empty, await _TagService.AddAsync(dto));
@@ -33,7 +36,7 @@ public class TagController : ControllerBase
     #endregion
 
     #region Update
-    [HttpPut("Tag/update/{id}")]
+    [HttpPut("tag/{id}")]
     public async Task<IActionResult> UpdateAsync(int id, [FromForm] TagUpdateDto dto)
     {
         return Ok(await _TagService.UpdateAsync(id, dto));
@@ -41,7 +44,7 @@ public class TagController : ControllerBase
     #endregion
 
     #region Delete
-    [HttpDelete("Tag/delete/{id}")]
+    [HttpDelete("tag/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _TagService.DeleteAsync(id);

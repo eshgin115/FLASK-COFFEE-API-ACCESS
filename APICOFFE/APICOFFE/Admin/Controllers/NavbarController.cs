@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.Navbar;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
@@ -13,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 namespace APICOFFE.Admin.Controllers;
 
 [ApiController]
+[Route("navbar")]
+
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class NavbarController : ControllerBase
@@ -24,7 +27,7 @@ public class NavbarController : ControllerBase
         _navbarService = navbarService;
     }
     #region List
-    [HttpGet("navbar/list")]
+    [HttpGet("navbars")]
     public async Task<IActionResult> ListAsync()
     {
         return Ok(await _navbarService.ListAsync());
@@ -33,7 +36,7 @@ public class NavbarController : ControllerBase
 
     #region add
 
-    [HttpPost("navbar/add")]
+    [HttpPost("navbar")]
     public async Task<IActionResult> AddAsync(NavbarCreateDto dto)
     {
         return Created(string.Empty, await _navbarService.AddAsync(dto));
@@ -43,7 +46,7 @@ public class NavbarController : ControllerBase
 
     #region Update
 
-    [HttpPut("navbar/update/{id}")]
+    [HttpPut("navbar/{id}")]
     public async Task<IActionResult> UpdateAsync(int id, NavbarUpdateDto dto)
     {
         return Ok(await _navbarService.UpdateAsync(id, dto));
@@ -51,7 +54,7 @@ public class NavbarController : ControllerBase
     #endregion
 
     #region delete
-    [HttpDelete("navbar/delete/{id}")]
+    [HttpDelete("navbar/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _navbarService.DeleteAsync(id);

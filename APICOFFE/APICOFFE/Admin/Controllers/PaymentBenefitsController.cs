@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Admin.Dtos.PaymentBenefits;
+using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Identity;
 using APICOFFE.Services.Concretes;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
+[Route("payment-benefits")]
+
 //[Authorize(Roles = RoleNames.ADMIN)]
 
 public class PaymentBenefitsController : ControllerBase
@@ -17,7 +20,7 @@ public class PaymentBenefitsController : ControllerBase
         _PaymentBenefitsService = paymentBenefitsService;
     }
     #region List
-    [HttpGet("PaymentBenefits/list")]
+    [HttpGet("payment-benefits")]
     public async Task<IActionResult> ListAsync()
     {
         return Ok(await _PaymentBenefitsService.ListAsync());
@@ -25,7 +28,7 @@ public class PaymentBenefitsController : ControllerBase
     #endregion
 
     #region Add
-    [HttpPost("PaymentBenefits/add")]
+    [HttpPost("payment-benefits")]
     public async Task<IActionResult> AddAsync([FromForm] PaymentBenefitsCreateDto dto)
     {
         return Created(string.Empty, await _PaymentBenefitsService.AddAsync(dto));
@@ -33,7 +36,7 @@ public class PaymentBenefitsController : ControllerBase
     #endregion
 
     #region Update
-    [HttpPut("PaymentBenefits/update/{id}")]
+    [HttpPut("payment-benefits/{id}")]
     public async Task<IActionResult> UpdateAsync(int id, [FromForm] PaymentBenefitsUpdateDto dto)
     {
         return Ok(await _PaymentBenefitsService.UpdateAsync(id, dto));
@@ -41,7 +44,7 @@ public class PaymentBenefitsController : ControllerBase
     #endregion
 
     #region Delete
-    [HttpDelete("PaymentBenefits/delete/{id}")]
+    [HttpDelete("payment-benefits/{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _PaymentBenefitsService.DeleteAsync(id);
