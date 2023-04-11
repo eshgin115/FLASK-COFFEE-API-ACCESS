@@ -18,7 +18,7 @@ public class FoodListItemDto
         {
 
         }
-        public ItemViewModel(int id, string? name)
+        public ItemDto(int id, string? name)
         {
             Id = id;
             Name = name;

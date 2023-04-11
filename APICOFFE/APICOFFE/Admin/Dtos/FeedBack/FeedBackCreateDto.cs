@@ -13,5 +13,7 @@ public class FeedBackCreateDto
     [Required]
     public string Content { get; set; } = default!;
 
+    [Required]
+
     public int RoleId { get; set; }
 }

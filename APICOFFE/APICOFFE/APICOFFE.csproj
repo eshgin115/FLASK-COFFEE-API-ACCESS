@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Admin\Validators\" />
     <Folder Include="Client\Validators\" />
   </ItemGroup>
 
