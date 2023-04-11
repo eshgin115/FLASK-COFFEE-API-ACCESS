@@ -28,7 +28,9 @@ namespace APICOFFE.Admin.Services.Services
         public async Task<DiscoverMenuUpdateResponseDto> GetAsync()
         {
             var discoverMenu = await _dataContext.DiscoverMenu
-                  .Include(dm => dm.DiscoverMenuImages).SingleOrDefaultAsync();
+                  .Include(dm => dm.DiscoverMenuImages)
+                  .AsNoTracking()
+                  .SingleOrDefaultAsync();
 
             var discoverMenuDto = _mapper.Map<DiscoverMenuUpdateResponseDto>(discoverMenu);
             discoverMenuDto.ImageURL = discoverMenuDto.ImageURL != null

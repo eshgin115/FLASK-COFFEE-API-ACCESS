@@ -21,7 +21,7 @@ public class FoodCategoryService : IFoodCategoryService
     }
     public async Task<List<FoodCategoryListItemDto>> ListAsync()
     {
-        var foodCategories = await _dataContext.FoodCategories.ToListAsync();
+        var foodCategories = await _dataContext.FoodCategories.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<FoodCategoryListItemDto>>(foodCategories);
     }

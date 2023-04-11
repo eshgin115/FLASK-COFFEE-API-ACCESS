@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("tag")]
-
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 
 public class TagController : ControllerBase
 {

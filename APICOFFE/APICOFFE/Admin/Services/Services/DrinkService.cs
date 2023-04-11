@@ -37,6 +37,7 @@ public class DrinkService : IDrinkService
                                         .Include(f => f.DrinkSizes)!
                                         .ThenInclude(fs => fs.Size)
                                         .Include(f => f.DrinkCategory)!
+                                        .AsNoTracking()
                                         .ToListAsync();
         var drinksDto = _mapper.Map<List<DrinkListItemDto>>(drinks);
         drinksDto.ForEach(fbm => fbm.ImageURL = fbm.ImageURL != null

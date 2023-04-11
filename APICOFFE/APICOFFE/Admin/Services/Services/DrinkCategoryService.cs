@@ -43,7 +43,7 @@ public class DrinkCategoryService : IDrinkCategoryService
 
     public async Task<List<DrinkCategoryListItemDto>> ListAsync()
     {
-        var drinkCategories = await _dataContext.DrinkCategories.ToListAsync();
+        var drinkCategories = await _dataContext.DrinkCategories.AsNoTracking().ToListAsync();
 
         return _mapper.Map<List<DrinkCategoryListItemDto>>(drinkCategories); 
     }

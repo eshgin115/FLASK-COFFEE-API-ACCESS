@@ -12,7 +12,6 @@ public class DrinkListItemDto
     public string CategoryName { get; set; } = default!;
     public class ItemDto
     {
-
         public int Id { get; set; } = default!;
         public string Name { get; set; } = null!;
     }

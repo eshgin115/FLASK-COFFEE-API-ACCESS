@@ -25,7 +25,7 @@ public class ShortInfoService : IShortInfoService
 
     public async Task<ShortInfoListItemDto> GetAsync()
     {
-        var shortInfo = await _dataContext.ShortInfo.SingleOrDefaultAsync();
+        var shortInfo = await _dataContext.ShortInfo.AsNoTracking().SingleOrDefaultAsync();
 
         return _mapper.Map<ShortInfoListItemDto>(shortInfo);
     }

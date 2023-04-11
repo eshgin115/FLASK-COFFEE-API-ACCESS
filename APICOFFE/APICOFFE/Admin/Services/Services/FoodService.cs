@@ -56,17 +56,78 @@ public class FoodService : IFoodService
 
         return await GetFoodListItemDtoAsync(food);
     }
-    public Task<FoodListItemDto> UpdateAsync(int id, FoodUpdateDto dto)
+    public async Task<FoodListItemDto> UpdateAsync(int id, FoodUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var food = await _dataContext.Foods
+                .Include(p => p.FoodTags)
+                .Include(p => p.FoodSizes)
+                .FirstOrDefaultAsync(p => p.Id == id)
+                ?? throw new NotFoundException("Food",id);
+
+        CheckingSize(dto.SizeIds!);
+
+        CheckingForCategory(dto.CategoryId);
+
+        CheckingTag(dto.TagIds!);
+
+        await UpdateFood(food, dto);
+
+        return await GetFoodListItemDtoAsync(food);
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var food = await _dataContext.Foods
+                //.Include(f => f.OrderProducts)
+                .Include(f => f.FoodImages)
+                .FirstOrDefaultAsync(f => f.Id == id)
+                ?? throw new NotFoundException("Food",id);
+
+
+        _dataContext.Foods.Remove(food);
+
+        foreach (var foodimage in food.FoodImages!)
+            await _fileService.DeleteAsync(foodimage.ImageNameInFileSystem, UploadDirectory.FOOD_IMAGE);
+
+
+        await _dataContext.SaveChangesAsync();
     }
 
 
+    public async Task UpdateFood(Food food, FoodUpdateDto dto)
+    {
+        _mapper.Map(dto, food);
+
+        await UpdateFoodTag(food, dto);
+
+        await UpdateFoodSize(food, dto);
+     
+        await _dataContext.SaveChangesAsync();
+    }
+    private async Task UpdateFoodTag(Food food, FoodUpdateDto dto)
+    {
+        var TagsInDb = food.FoodTags!.Select(pt => pt.TagId).ToList();
+        var TagsInDbToRemove = TagsInDb.Except(dto.TagIds).ToList();
+        var TagsToAdd = dto.TagIds.Except(TagsInDb).ToList();
+
+        food.FoodTags!.RemoveAll(pt => TagsInDbToRemove.Contains(pt.TagId));
+
+        foreach (var tagId in TagsToAdd)
+            await _dataContext.FoodTags.AddAsync(_mapper.Map<FoodTag>((tagId, food)));
+    }
+    private async Task UpdateFoodSize(Food food, FoodUpdateDto dto)
+    {
+
+        var SizesInDb = food.FoodSizes!.Select(ps => ps.SizeId).ToList();
+        var SizesInDbToRemove = SizesInDb.Except(dto.SizeIds).ToList();
+        var SizesToAdd = dto.SizeIds.Except(SizesInDb).ToList();
+
+        food.FoodSizes!.RemoveAll(pt => SizesInDbToRemove.Contains(pt.SizeId));
+
+        foreach (var sizeId in SizesToAdd)
+            await _dataContext.FoodSizes.AddAsync(_mapper.Map<FoodSize>((sizeId, food)));
+
+    }
 
     private void CheckingSize(List<int> SizeIds)
     {

@@ -8,7 +8,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("drink")]
 
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 public class DrinkController : ControllerBase
 {
     private readonly IDrinkService _drinkService;

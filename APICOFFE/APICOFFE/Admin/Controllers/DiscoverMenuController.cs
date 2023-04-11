@@ -14,8 +14,7 @@ namespace APICOFFE.Admin.Controllers
 {
     [ApiController]
     [Route("discover-menu")]
-
-    //[Authorize(Roles = RoleNames.ADMIN)]
+    [Authorize(Roles = RoleNames.ADMIN)]
     public class DiscoverMenuController : ControllerBase
     {
         private readonly IDiscoverMenuService _discoverMenuService;
