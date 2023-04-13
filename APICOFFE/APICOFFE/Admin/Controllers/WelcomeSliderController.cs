@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("welcome-slider")]
-[Authorize(Roles = RoleNames.ADMIN)]
+//[Authorize(Roles = RoleNames.ADMIN)]
 
 public class WelcomeSliderController : ControllerBase
 {

@@ -57,8 +57,8 @@ public class UserService : IUserService
                 throw new IdentityCookieException("Identity cookie not found");
 
             _currentUser = _dataContext.Users
-                //.Include(u => u.Basket)
-                //.ThenInclude(ub => ub.BasketProducts)
+                .Include(u => u.Basket)
+                .ThenInclude(ub => ub.BasketProducts)
                 .First(u => u.Id == int.Parse(idClaim.Value));
 
             return _currentUser;

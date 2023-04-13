@@ -9,7 +9,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("payment-benefits")]
 
-[Authorize(Roles = RoleNames.ADMIN)]
+//[Authorize(Roles = RoleNames.ADMIN)]
 
 public class PaymentBenefitsController : ControllerBase
 {

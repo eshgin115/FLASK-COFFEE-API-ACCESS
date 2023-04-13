@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace APICOFFE.Client.Controllers;
+
 [ApiController]
+[Route("client-discover-menu")]
 public class DiscoverMenuController : ControllerBase
 {
     private readonly DataContext _dataContext;
@@ -20,9 +22,8 @@ public class DiscoverMenuController : ControllerBase
         _fileService = fileService;
         _mapper = mapper;
     }
-    [HttpGet("client/DiscoverMenu/list")]
-
-    public async Task<IActionResult> ListAsync()
+    [HttpGet("discover-menu")]
+    public async Task<IActionResult> GetAsync()
     {
         var discoverMenu = await _dataContext.DiscoverMenu
            .Include(dm => dm.DiscoverMenuImages)
@@ -30,8 +31,9 @@ public class DiscoverMenuController : ControllerBase
            .SingleOrDefaultAsync();
 
         var discoverMenuDto = _mapper.Map<DiscoverMenuListItemDto>(discoverMenu);
-        discoverMenuDto.ImageURLs = discoverMenuDto.ImageURLs.
-            Select(url => url = _fileService.GetFileUrl(url, UploadDirectory.DISCOVER_MENU_IMAGE)).ToList();
+        discoverMenuDto.ImageURLs = 
+            discoverMenuDto.ImageURLs.Select(url => url = _fileService
+            .GetFileUrl(url, UploadDirectory.DISCOVER_MENU_IMAGE)).ToList();
 
 
         return Ok(discoverMenuDto);

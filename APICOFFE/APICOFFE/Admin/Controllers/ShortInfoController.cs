@@ -9,7 +9,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("short-info")]
 
-[Authorize(Roles = RoleNames.ADMIN)]
+//[Authorize(Roles = RoleNames.ADMIN)]
 
 public class ShortInfoController : ControllerBase
 {

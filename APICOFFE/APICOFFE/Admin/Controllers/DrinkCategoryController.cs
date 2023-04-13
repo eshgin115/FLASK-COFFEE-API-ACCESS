@@ -9,7 +9,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("drink-category")]
 
-[Authorize(Roles = RoleNames.ADMIN)]
+//[Authorize(Roles = RoleNames.ADMIN)]
 
 public class DrinkCategoryController : ControllerBase
 {

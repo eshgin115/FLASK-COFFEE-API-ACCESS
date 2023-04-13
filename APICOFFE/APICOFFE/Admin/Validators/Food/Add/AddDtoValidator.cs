@@ -18,8 +18,8 @@ public class AddDtoValidator : AbstractValidator<FoodCreateDto>
           .WithMessage("Content can't be empty")
           .MinimumLength(10)
           .WithMessage("Minimum length should be 10")
-          .MaximumLength(35)
-          .WithMessage("Maximum length should be 35");
+          .MaximumLength(100)
+          .WithMessage("Maximum length should be 100");
 
         RuleFor(avm => avm.Title)
           .Cascade(CascadeMode.Stop)
@@ -29,8 +29,8 @@ public class AddDtoValidator : AbstractValidator<FoodCreateDto>
           .WithMessage("Title can't be empty")
           .MinimumLength(10)
           .WithMessage("Minimum length should be 10")
-          .MaximumLength(35)
-          .WithMessage("Maximum length should be 35");
+          .MaximumLength(100)
+          .WithMessage("Maximum length should be 100");
 
         RuleFor(avm => avm.Ingredients)
         .Cascade(CascadeMode.Stop)
@@ -40,8 +40,8 @@ public class AddDtoValidator : AbstractValidator<FoodCreateDto>
         .WithMessage("Ingredients can't be empty")
         .MinimumLength(10)
         .WithMessage("Minimum length should be 10")
-        .MaximumLength(35)
-        .WithMessage("Maximum length should be 35");
+        .MaximumLength(100)
+        .WithMessage("Maximum length should be 100");
 
 
 
