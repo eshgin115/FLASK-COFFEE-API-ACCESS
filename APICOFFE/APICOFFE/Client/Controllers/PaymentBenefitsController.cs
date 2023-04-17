@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace APICOFFE.Client.Controllers;
 
 [ApiController]
-[Route("payment-benefits")]
+[Route("client-payment-benefits")]
 public class PaymentBenefitsController : ControllerBase
 {
     private readonly DataContext _dataContext;
