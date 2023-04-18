@@ -16,10 +16,10 @@ public class BasketProductConfigurations : IEntityTypeConfiguration<BasketProduc
           .WithMany(basket => basket.BasketProducts)
           .HasForeignKey(bp => bp.BasketId);
 
-        //builder
-        //  .HasOne(bp => bp.Food)
-        //  .WithMany(plant => plant.BasketProducts)
-        //  .HasForeignKey(bp => bp.FoodId);
+        builder
+          .HasOne(bp => bp.Food)
+          .WithMany(plant => plant.BasketProducts)
+          .HasForeignKey(bp => bp.FoodId);
 
     }
 }

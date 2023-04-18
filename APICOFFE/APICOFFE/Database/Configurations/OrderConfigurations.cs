@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace APICOFFE.Database.Configurations;
 
-public class BasketConfigurations : IEntityTypeConfiguration<Basket>
+
+public class OrderConfigurations : IEntityTypeConfiguration<Order>
 {
-    public void Configure(EntityTypeBuilder<Basket> builder)
+    public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder
-            .ToTable("Baskets");
+            .ToTable("Orders");
     }
 }

@@ -22,6 +22,6 @@ public class User : BaseEntity<int>, IAuditable
     //public Contact? Contact { get; set; }
 
     public bool IsEmailConfirmed { get; set; }
-    //public List<Order>? Orders { get; set; }
+    public List<Order>? Orders { get; set; }
     //public List<Blog>? Blogs { get; set; }
 }

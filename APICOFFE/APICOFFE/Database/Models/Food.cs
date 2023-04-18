@@ -15,7 +15,7 @@ public class Food : BaseEntity<int>, IAuditable
     public List<FoodSize>? FoodSizes { get; set; }
     public List<FoodImage>? FoodImages { get; set; }
     public List<BasketProduct>? BasketProducts { get; set; }
-    //public List<OrderProduct>? OrderProducts { get; set; }
+    public List<OrderProduct>? OrderProducts { get; set; }
     public int FoodCategoryId { get; set; }
     public FoodCategory? FoodCategory { get; set; }
 }

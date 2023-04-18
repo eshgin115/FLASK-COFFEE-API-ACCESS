@@ -2,10 +2,10 @@
 
 namespace APICOFFE.Database.Models;
 
-public class BasketProduct : BaseEntity<int>, IAuditable
+public class OrderProduct : BaseEntity<int>, IAuditable
 {
-    public int BasketId { get; set; }
-    public Basket? Basket { get; set; }
+    public string OrderId { get; set; }
+    public Order? Order { get; set; }
     public decimal Price { get; set; }
     public int? FoodId { get; set; }
     public Food? Food { get; set; }

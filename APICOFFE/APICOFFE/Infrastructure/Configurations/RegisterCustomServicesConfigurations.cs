@@ -31,7 +31,7 @@ namespace APICOFFE.Infrastructure.Configurations
             services.AddScoped<IBasketService, BasketService>();
             //services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IFoodService, FoodService>();
-            //services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderService, OrderService>();
             //services.AddScoped<IsAuthenticated>();
         }
     }

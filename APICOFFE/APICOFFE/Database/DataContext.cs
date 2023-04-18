@@ -19,8 +19,8 @@ namespace FLASK_COFFEE_API.Database
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<BasketProduct> BasketProducts { get; set; }
-        //public DbSet<OrderProduct> OrderProducts { get; set; }
-        //public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> Orderproducts { get; set; }
+        public DbSet<Order> Orders { get; set; }
         //public DbSet<Contact> Contacts { get; set; }
         public DbSet<WelcomeSlider> WelcomeSliders { get; set; }
         public DbSet<ShortInfo> ShortInfo { get; set; }
