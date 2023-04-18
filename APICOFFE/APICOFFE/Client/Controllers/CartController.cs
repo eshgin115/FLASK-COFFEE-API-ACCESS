@@ -25,7 +25,7 @@ public class CartController : ControllerBase
         _orderService = orderService;
     }
     [HttpPost("placer-order")]
-    public async Task<IActionResult> PlaceOrderAsync([FromBody]PlaceOrderDto orderDto)
+    public async Task<IActionResult> PlaceOrderAsync([FromBody] PlaceOrderDto orderDto)
     {
         await _orderService.PlaceOrderAsync(orderDto);
         return Ok();

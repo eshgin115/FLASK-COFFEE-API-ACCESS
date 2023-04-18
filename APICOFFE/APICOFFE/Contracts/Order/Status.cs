@@ -1,11 +1,14 @@
-﻿namespace APICOFFE.Contracts.Order;
+﻿using System.ComponentModel;
+
+namespace APICOFFE.Contracts.Order;
+[Description("Status PlaceOrder")]
 public enum Status
 {
-    Created = 0,
-    Confirmed = 1,
-    Rejected = 2,
-    Submitted = 4,
-    Completed = 8,
+    Created = 1,
+    Confirmed = 2,
+    Rejected = 4,
+    Submitted = 8,
+    Completed = 16,
 }
 public static class StatusCodeExtensions
 {
@@ -43,10 +46,9 @@ public static class StatusCodeExtensions
 
             case Status.Submitted:
                 return $"Hörmətli {firstName} {lastName}, sizin {order_number} nömrəli sifariş göndərildi, kuryer sizinlə əlaqə saxlayacaq.";
+          
             case Status.Completed:
                 return $"Hörmətli {firstName} {lastName}, sizin {order_number} nömrəli sifariş kuryer tərəfindən təhvil verildi.";
-
-
 
             default:
                 throw new Exception("Status  not found");

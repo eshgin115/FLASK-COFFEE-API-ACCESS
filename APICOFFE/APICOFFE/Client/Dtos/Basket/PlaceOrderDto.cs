@@ -7,13 +7,13 @@ public class PlaceOrderDto
     public class FoodListItemDto
     {
         public int? Id { get; set; }
-        public int? Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public int SizId { get; set; }
     }
     public class DrinkListItemDto
     {
         public int? Id { get; set; }
-        public int? Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public int SizeId { get; set; }
     }
 }

@@ -11,8 +11,8 @@ public class OrderProduct : BaseEntity<int>, IAuditable
     public Food? Food { get; set; }
     public int? DrinkId { get; set; }
     public Drink? Drink { get; set; }
-    public int? QuantityFood { get; set; }
-    public int? QuantityDrink { get; set; }
+    public decimal? QuantityFood { get; set; }
+    public decimal? QuantityDrink { get; set; }
     public int? SizeId { get; set; }
     public Size? Size { get; set; }
 

@@ -3,6 +3,7 @@ using APICOFFE.Contracts.Order;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
+using AutoMapper;
 using FLASK_COFFEE_API.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,26 +12,23 @@ namespace APICOFFE.Services.Services;
 public class OrderService : IOrderService
 {
     private readonly DataContext _dataContext;
+    private readonly IMapper _mapper;
     private readonly IUserService _userService;
     private const int MIN_RANDOM_NUMBER = 10000;
     private const int MAX_RANDOM_NUMBER = 100000;
     private const string PREFIX = "OR";
 
 
-    public OrderService(DataContext dataContext, IUserService userService)
+    public OrderService(DataContext dataContext, IUserService userService, IMapper mapper)
     {
         _dataContext = dataContext;
         _userService = userService;
+        _mapper = mapper;
     }
     private async Task<Order> AddOrderAsync(decimal SumToal)
     {
-        var order = new Order
-        {
-            Id = GenerateId(),
-            SumTotalPrice = SumToal,
-            Status = Status.Created,
-            UserId = _userService.CurrentUser.Id,
-        };
+        var order = _mapper.Map<Order>((SumToal, GenerateId(), _userService.CurrentUser));
+     
         await _dataContext.Orders.AddAsync(order);
         return order;
     }
@@ -64,6 +62,13 @@ public class OrderService : IOrderService
 
         await AddOrderProductAsync(orderDto.DrinkListItemDtos, order);
 
+        //remove basketProduct
+        _dataContext.BasketProducts
+            .RemoveRange(_dataContext.BasketProducts
+            .Where(bp => bp.Basket.UserId == _userService.CurrentUser.Id));
+
+
+
         await _dataContext.SaveChangesAsync();
     }
     private async Task<decimal> FoodExistAsync(PlaceOrderDto orderDto)
@@ -80,7 +85,7 @@ public class OrderService : IOrderService
 
             if (!product.FoodSizes!.Any(fs => fs.SizeId == food.SizId))
                 throw new NotFoundException("Size", food.SizId);
-            sumTotalFood += product.Price;
+            sumTotalFood += product.Price * food.Quantity;
         }
         return sumTotalFood;
     }
@@ -97,7 +102,7 @@ public class OrderService : IOrderService
 
             if (!product.DrinkSizes!.Any(fs => fs.SizeId == drink.SizeId))
                 throw new NotFoundException("Size", drink.SizeId);
-            sumTotalDrink += product.Price;
+            sumTotalDrink += product.Price * drink.Quantity;
         }
         return sumTotalDrink;
     }

@@ -39,7 +39,7 @@ public class DrinkController : ControllerBase
     #region Update
 
     [HttpPut("drink/{id}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromForm] DrinkUpdateDto dto)
+    public async Task<IActionResult> UpdateAsync([FromRoute] int id,  DrinkUpdateDto dto)
     {
         return Ok(await _drinkService.UpdateAsync(id, dto));
     }
