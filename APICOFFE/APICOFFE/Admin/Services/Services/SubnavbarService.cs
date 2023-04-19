@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.Subnavbar;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using AutoMapper;
@@ -29,7 +30,7 @@ public class SubnavbarService : ISubnavbarService
     public async Task<SubnavbarListItemDto> AddAsync(SubnavbarCreateDto dto)
     {
         if (!_dataContext.Navbars.Any(n => n.Id == dto.NavbarId))
-                  throw new NotFoundException("Navbar",dto.NavbarId);
+                  throw new NotFoundException(DomainModelNames.NAVBAR, dto.NavbarId);
 
         var subnavbar = _mapper.Map<Subnavbar>(dto);
         await _dataContext.Subnavbars.AddAsync(subnavbar);
@@ -42,11 +43,11 @@ public class SubnavbarService : ISubnavbarService
     public async Task<SubnavbarListItemDto> UpdateAsync(int id, SubnavbarUpdateDto dto)
     {
         var subnavbar = await _dataContext.Subnavbars.FirstOrDefaultAsync(b => b.Id == id)
-            ?? throw new NotFoundException("Subnavbar",id);
+            ?? throw new NotFoundException(DomainModelNames.SUBNAVBAR, id);
 
 
         if (!_dataContext.Navbars.Any(n => n.Id == dto.NavbarId))
-            throw new NotFoundException("Navbar", id);
+            throw new NotFoundException(DomainModelNames.NAVBAR, id);
 
         _mapper.Map(dto, subnavbar);
         await _dataContext.SaveChangesAsync();
@@ -59,7 +60,7 @@ public class SubnavbarService : ISubnavbarService
     public async Task DeleteAsync(int id)
     {
         var subnavbar = await _dataContext.Subnavbars.FirstOrDefaultAsync(b => b.Id == id)
-            ?? throw new NotFoundException("subnavbar",id);
+            ?? throw new NotFoundException(DomainModelNames.SUBNAVBAR, id);
 
         _dataContext.Subnavbars.Remove(subnavbar);
         await _dataContext.SaveChangesAsync();

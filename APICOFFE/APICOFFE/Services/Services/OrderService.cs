@@ -1,4 +1,5 @@
 ﻿using APICOFFE.Client.Dtos.Basket;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Contracts.Order;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
@@ -14,21 +15,27 @@ public class OrderService : IOrderService
     private readonly DataContext _dataContext;
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
+    private readonly INotificationService _notificationService;
     private const int MIN_RANDOM_NUMBER = 10000;
     private const int MAX_RANDOM_NUMBER = 100000;
     private const string PREFIX = "OR";
 
 
-    public OrderService(DataContext dataContext, IUserService userService, IMapper mapper)
+    public OrderService
+        (DataContext dataContext,
+        IUserService userService,
+        IMapper mapper,
+        INotificationService notificationService)
     {
         _dataContext = dataContext;
         _userService = userService;
         _mapper = mapper;
+        _notificationService = notificationService;
     }
     private async Task<Order> AddOrderAsync(decimal SumToal)
     {
         var order = _mapper.Map<Order>((SumToal, GenerateId(), _userService.CurrentUser));
-     
+
         await _dataContext.Orders.AddAsync(order);
         return order;
     }
@@ -51,7 +58,6 @@ public class OrderService : IOrderService
     }
     public async Task PlaceOrderAsync(PlaceOrderDto orderDto)
     {
-
         var sumTotalFood = await FoodExistAsync(orderDto);
 
         var sumTotalDrink = await DrinkExistAsync(orderDto);
@@ -67,7 +73,7 @@ public class OrderService : IOrderService
             .RemoveRange(_dataContext.BasketProducts
             .Where(bp => bp.Basket.UserId == _userService.CurrentUser.Id));
 
-
+        await _notificationService.SenOrderCreatedToAdmin(order.Id);
 
         await _dataContext.SaveChangesAsync();
     }
@@ -81,10 +87,10 @@ public class OrderService : IOrderService
                 .Include(p => p.FoodSizes)!
                 .ThenInclude(p => p.Size)
                 .FirstOrDefaultAsync(p => p.Id == food.Id)
-                ?? throw new NotFoundException("Food", food.Id!);
+                ?? throw new NotFoundException(DomainModelNames.FOOD, food.Id!);
 
             if (!product.FoodSizes!.Any(fs => fs.SizeId == food.SizId))
-                throw new NotFoundException("Size", food.SizId);
+                throw new NotFoundException(DomainModelNames.SIZE, food.SizId);
             sumTotalFood += product.Price * food.Quantity;
         }
         return sumTotalFood;
@@ -98,10 +104,10 @@ public class OrderService : IOrderService
                 .Include(p => p.DrinkSizes)!
                 .ThenInclude(p => p.Size)
                 .FirstOrDefaultAsync(p => p.Id == drink.Id)
-                ?? throw new NotFoundException("Drink", drink.Id!);
+                ?? throw new NotFoundException(DomainModelNames.DRINK, drink.Id!);
 
             if (!product.DrinkSizes!.Any(fs => fs.SizeId == drink.SizeId))
-                throw new NotFoundException("Size", drink.SizeId);
+                throw new NotFoundException(DomainModelNames.SIZE, drink.SizeId);
             sumTotalDrink += product.Price * drink.Quantity;
         }
         return sumTotalDrink;
@@ -110,31 +116,18 @@ public class OrderService : IOrderService
     {
         foreach (var food in foodDtos)
         {
-            var orderProduct = new OrderProduct
-            {
-                OrderId = order.Id,
-                FoodId = food.Id,
-                QuantityFood = food.Quantity,
-                Price = _dataContext.Foods.First(f => f.Id == food.Id).Price,
-                SizeId = food.SizId
-            };
-            await _dataContext.Orderproducts.AddAsync(orderProduct);
+            var foodPrice = _dataContext.Foods.First(f => f.Id == food.Id).Price;
+
+            await _dataContext.Orderproducts.AddAsync(_mapper.Map<OrderProduct>((order, food, foodPrice)));
         }
     }
     private async Task AddOrderProductAsync(List<PlaceOrderDto.DrinkListItemDto> drinkDtos, Order order)
     {
         foreach (var drink in drinkDtos)
         {
-            var orderProduct = new OrderProduct
-            {
+            var drinkPrice = _dataContext.Drinks.First(f => f.Id == drink.Id).Price;
 
-                OrderId = order.Id,
-                DrinkId = drink.Id,
-                QuantityDrink = drink.Quantity,
-                SizeId = drink.SizeId,
-                Price = _dataContext.Drinks.First(f => f.Id == drink.Id).Price,
-            };
-            await _dataContext.Orderproducts.AddAsync(orderProduct);
+            await _dataContext.Orderproducts.AddAsync(_mapper.Map<OrderProduct>((order, drink, drinkPrice)));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using APICOFFE.Admin.Hubs;
 using APICOFFE.Exceptions;
 using APICOFFE.Middlewares;
 
@@ -14,6 +15,7 @@ namespace APICOFFE.Infrastructure.Extensions
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.MapHub<AlertHub>("hubs/alert-hub");
 
             app.UseHttpsRedirection();
 

@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.Size;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using AutoMapper;
@@ -37,7 +38,7 @@ public class SizeService : ISizeService
     public async Task<SizeListItemDto> UpdateAsync(int id, SizeUpdateDto dto)
     {
         var size = await _dataContext.Sizes.FirstOrDefaultAsync(c => c.Id == id)
-         ?? throw new NotFoundException("Size", id);
+         ?? throw new NotFoundException(DomainModelNames.SIZE, id);
 
         _mapper.Map(dto, size);
 
@@ -48,7 +49,7 @@ public class SizeService : ISizeService
     public async Task DeleteAsync(int id)
     {
         var size = await _dataContext.Sizes/*.Include(s => s.FoodSizes)*/.FirstOrDefaultAsync(c => c.Id == id)
-             ?? throw new NotFoundException("Size", id);
+             ?? throw new NotFoundException(DomainModelNames.SIZE, id);
 
         _dataContext.Sizes.Remove(size);
         await _dataContext.SaveChangesAsync();

@@ -11,7 +11,6 @@ public class DrinkSizeConfigurations : IEntityTypeConfiguration<DrinkSize>
         builder
             .ToTable("DrinkSizes");
 
-
         builder
             .HasKey(ps => new { ps.DrinkId, ps.SizeId });
 

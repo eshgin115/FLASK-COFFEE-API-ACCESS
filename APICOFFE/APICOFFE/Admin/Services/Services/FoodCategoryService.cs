@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.FoodCategory;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using AutoMapper;
@@ -40,7 +41,7 @@ public class FoodCategoryService : IFoodCategoryService
     public async Task<FoodCategoryListItemDto> UpdateAsync(int id, FoodCategoryUpdateDto dto)
     {
         var foodCategory = await _dataContext.FoodCategories.FirstOrDefaultAsync(c => c.Id == id)
-            ?? throw new NotFoundException("FoodCategory", id);
+            ?? throw new NotFoundException(DomainModelNames.FOOD_CATEGORY, id);
 
         _mapper.Map(dto, foodCategory);
 
@@ -51,7 +52,7 @@ public class FoodCategoryService : IFoodCategoryService
     public async Task DeleteAsync(int id)
     {
         var foodCategory = await _dataContext.FoodCategories.FirstOrDefaultAsync(c => c.Id == id)
-                  ?? throw new NotFoundException("FoodCategory", id);
+                  ?? throw new NotFoundException(DomainModelNames.FOOD_CATEGORY, id);
 
         _dataContext.FoodCategories.Remove(foodCategory);
 

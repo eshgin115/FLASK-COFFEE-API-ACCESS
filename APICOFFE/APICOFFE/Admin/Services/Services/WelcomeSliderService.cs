@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.WelcomeSlider;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -39,7 +40,7 @@ public class WelcomeSliderService : IWelcomeSliderService
     public async Task DeleteAsync(int id)
     {
         var welcomeSlider = await _dataContext.WelcomeSliders.FirstOrDefaultAsync(b => b.Id == id)
-                                              ?? throw new NotFoundException("WelcomeSlider", id);
+                                              ?? throw new NotFoundException(DomainModelNames.WELCOME_SLIDER, id);
 
         await _fileService.DeleteAsync(welcomeSlider.ImageNameInFileSystem, UploadDirectory.WELCOME_SLIDER);
 
@@ -51,7 +52,7 @@ public class WelcomeSliderService : IWelcomeSliderService
     {
 
         if (_dataContext.WelcomeSliders.Any(n => n.Order == dto.Order))
-            throw new ExistException("Order allready exist");
+            throw new ValidationException("Order allready exist");
 
         string imageNameInSystem = null;
 
@@ -71,11 +72,11 @@ public class WelcomeSliderService : IWelcomeSliderService
     public async Task<WelcomeSliderListItemDto> UpdateAsync(int id, WelcomeSliderUpdateDto dto)
     {
         var welcomeSlider = await _dataContext.WelcomeSliders.FirstOrDefaultAsync(b => b.Id == id)
-                                  ?? throw new NotFoundException("welcomeSlider", id);
+                                  ?? throw new NotFoundException(DomainModelNames.WELCOME_SLIDER, id);
 
 
         if (_dataContext.WelcomeSliders.Any(s => s.Order == dto.Order) && dto.Order != welcomeSlider.Order)
-            throw new ExistException("Order allready exist");
+            throw new ValidationException("Order allready exist");
 
         string imageFileNameInSystem = null!;
         if (dto.Image is not null)

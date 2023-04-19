@@ -14,7 +14,7 @@ public class Drink : BaseEntity<int>, IAuditable
     public List<DrinkTag>? DrinkTags { get; set; }
     public List<DrinkSize>? DrinkSizes { get; set; }
     public List<BasketProduct>? BasketProducts { get; set; }
-    //public List<OrderProduct>? OrderProducts { get; set; }
+    public List<OrderProduct>? OrderProducts { get; set; }
     public int DrinkCategoryId { get; set; }
     public DrinkCategory DrinkCategory { get; set; }
 }

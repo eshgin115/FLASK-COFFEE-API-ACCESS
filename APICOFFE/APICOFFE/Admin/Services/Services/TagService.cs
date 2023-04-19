@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.Tag;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -39,7 +40,7 @@ public class TagService : ITagService
     public async Task<TagListItemDto> UpdateAsync(int id, TagUpdateDto dto)
     {
         var tag = await _dataContext.Tags.FirstOrDefaultAsync(c => c.Id == id)
-           ?? throw new NotFoundException("Tag", id);
+           ?? throw new NotFoundException(DomainModelNames.TAG, id);
 
         _mapper.Map(dto, tag);
 
@@ -50,7 +51,7 @@ public class TagService : ITagService
     public async Task DeleteAsync(int id)
     {
         var tag = await _dataContext.Tags/*.Include(s => s.FoodSizes)*/.FirstOrDefaultAsync(c => c.Id == id)
-              ?? throw new NotFoundException("Tag", id);
+              ?? throw new NotFoundException(DomainModelNames.TAG, id);
 
         _dataContext.Tags.Remove(tag);
         await _dataContext.SaveChangesAsync();

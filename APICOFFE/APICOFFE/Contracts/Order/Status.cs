@@ -16,7 +16,7 @@ public static class StatusCodeExtensions
     {
         switch (status)
         {
-            case 0:
+            case Status.Created:
                 return "Created";
             case Status.Confirmed:
                 return "Confirmed";
@@ -26,8 +26,6 @@ public static class StatusCodeExtensions
                 return "Submitted";
             case Status.Completed:
                 return "Completed";
-
-
 
             default:
                 throw new Exception("Status  not found");
@@ -43,6 +41,8 @@ public static class StatusCodeExtensions
 
             case Status.Confirmed:
                 return $"Hörmətli {firstName} {lastName}, sizin {order_number} nömrəli sifariş təsdiqlənmədi.";
+            case Status.Rejected:
+                return $"Hörmətli {firstName} {lastName}, sizin {order_number} nömrəli sifariş reject olundu.";
 
             case Status.Submitted:
                 return $"Hörmətli {firstName} {lastName}, sizin {order_number} nömrəli sifariş göndərildi, kuryer sizinlə əlaqə saxlayacaq.";

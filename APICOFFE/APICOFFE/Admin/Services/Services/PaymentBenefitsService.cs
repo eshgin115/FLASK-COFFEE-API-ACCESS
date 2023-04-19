@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.PaymentBenefits;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -51,10 +52,10 @@ public class PaymentBenefitsService : IPaymentBenefitsService
     public async Task<PaymentBenefitsListItemDto> UpdateAsync(int id, PaymentBenefitsUpdateDto dto)
     {
         var paymentBenefits = await _dataContext.PaymentBenefits.FirstOrDefaultAsync(b => b.Id == id)
-             ?? throw new NotFoundException("PaymentBenefits", id);
+             ?? throw new NotFoundException(DomainModelNames.PAYMENT_BENEFITS, id);
 
         if (_dataContext.PaymentBenefits.Any(p => p.Order == dto.Order) && !(dto.Order == paymentBenefits.Order))
-            throw new ExistException("Order Allready using");
+            throw new ValidationException("Order Allready using");
 
         string imageFileNameInSystem = null!;
         if (dto.Image is not null)
@@ -74,7 +75,7 @@ public class PaymentBenefitsService : IPaymentBenefitsService
     public async Task DeleteAsync(int id)
     {
         var paymentBenefits = await _dataContext.PaymentBenefits.FirstOrDefaultAsync(b => b.Id == id)
-                                          ?? throw new NotFoundException("PaymentBenefits", id);
+                                          ?? throw new NotFoundException(DomainModelNames.PAYMENT_BENEFITS, id);
 
         await _fileService.DeleteAsync(paymentBenefits.ImageNameInFileSystem, UploadDirectory.PAYMENT_BENEFITS);
 

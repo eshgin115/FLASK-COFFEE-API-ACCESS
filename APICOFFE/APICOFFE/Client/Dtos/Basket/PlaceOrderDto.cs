@@ -2,8 +2,8 @@
 
 public class PlaceOrderDto
 {
-    public List<FoodListItemDto> FoodListItemDtos { get; set; } = new List<FoodListItemDto>();
-    public List<DrinkListItemDto> DrinkListItemDtos { get; set; } = new List<DrinkListItemDto>();
+    public List<FoodListItemDto>? FoodListItemDtos { get; set; } = new List<FoodListItemDto>();
+    public List<DrinkListItemDto>? DrinkListItemDtos { get; set; } = new List<DrinkListItemDto>();
     public class FoodListItemDto
     {
         public int? Id { get; set; }

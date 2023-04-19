@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.Food;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -62,7 +63,7 @@ public class FoodService : IFoodService
                 .Include(p => p.FoodTags)
                 .Include(p => p.FoodSizes)
                 .FirstOrDefaultAsync(p => p.Id == id)
-                ?? throw new NotFoundException("Food",id);
+                ?? throw new NotFoundException(DomainModelNames.FOOD, id);
 
         CheckingSize(dto.SizeIds!);
 
@@ -81,7 +82,7 @@ public class FoodService : IFoodService
                 //.Include(f => f.OrderProducts)
                 .Include(f => f.FoodImages)
                 .FirstOrDefaultAsync(f => f.Id == id)
-                ?? throw new NotFoundException("Food",id);
+                ?? throw new NotFoundException(DomainModelNames.FOOD, id);
 
 
         _dataContext.Foods.Remove(food);
@@ -133,18 +134,18 @@ public class FoodService : IFoodService
     {
         foreach (var sizeId in SizeIds)
             if (!_dataContext.Sizes.Any(c => c.Id == sizeId))
-                throw new NotFoundException("Size", sizeId);
+                throw new NotFoundException(DomainModelNames.SIZE, sizeId);
     }
     private void CheckingTag(List<int> TagIds)
     {
         foreach (var tagId in TagIds)
             if (!_dataContext.Tags.Any(c => c.Id == tagId))
-                throw new NotFoundException("Tag", tagId);
+                throw new NotFoundException(DomainModelNames.TAG, tagId);
     }
     private void CheckingForCategory(int CategoryId)
     {
         if (!_dataContext.FoodCategories.Any(c => c.Id == CategoryId))
-            throw new NotFoundException("FoodCategory", CategoryId);
+            throw new NotFoundException(DomainModelNames.FOOD_CATEGORY, CategoryId);
 
     }
     private async Task AddFoodSizeAsync(Food food, List<int> SizeIds)

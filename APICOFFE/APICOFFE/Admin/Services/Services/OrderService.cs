@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.Order;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.Email;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Contracts.Order;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -32,7 +33,7 @@ public class OrderService : Concretes.IOrderService
     public async Task<OrderListItemDto> UpdateAsync(string id, OrderUpdateDto dto)
     {
         var order = await _dbContext.Orders.Include(o => o.User)
-          .FirstOrDefaultAsync(o => o.Id == id) ?? throw new NotFoundException("Order", id);
+          .FirstOrDefaultAsync(o => o.Id == id) ?? throw new NotFoundException(DomainModelNames.ORDER, id);
 
 
         order!.Status = dto.Statuse;
@@ -59,7 +60,7 @@ public class OrderService : Concretes.IOrderService
         var order = await _dbContext.Orders
             .Include(o => o.OrderProducts)
             .FirstOrDefaultAsync(o => o.Id == id)
-            ?? throw new NotFoundException("Order", id);
+            ?? throw new NotFoundException(DomainModelNames.ORDER, id);
 
         _dbContext.Orders.Remove(order);
 

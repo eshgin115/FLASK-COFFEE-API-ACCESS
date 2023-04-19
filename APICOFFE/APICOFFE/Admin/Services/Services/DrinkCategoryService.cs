@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.DrinkCategory;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -34,7 +35,7 @@ public class DrinkCategoryService : IDrinkCategoryService
     public async Task DeleteAsync(int id)
     {
         var drinkCategory = await _dataContext.DrinkCategories.FirstOrDefaultAsync(c => c.Id == id)
-            ?? throw new NotFoundException("DrinkCategory", id);
+            ?? throw new NotFoundException(DomainModelNames.DRINK_CATEGORY, key: id);
 
         _dataContext.DrinkCategories.Remove(drinkCategory);
 
@@ -51,7 +52,7 @@ public class DrinkCategoryService : IDrinkCategoryService
     public async Task<DrinkCategoryListItemDto> UpdateAsync(int id, DrinkCategoryUpdateDto dto)
     {
         var drinkCategory = await _dataContext.DrinkCategories.FirstOrDefaultAsync(c => c.Id == id)
-                                ?? throw new NotFoundException("DrinkCategory", id);
+                                ?? throw new NotFoundException(DomainModelNames.DRINK_CATEGORY, key: id);
 
         _mapper.Map(dto, drinkCategory);
 

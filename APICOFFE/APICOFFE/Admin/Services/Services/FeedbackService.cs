@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.FeedBack;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -44,7 +45,7 @@ namespace APICOFFE.Admin.Services.Services
         public async Task<FeedBackListItemDto> AddAsync(FeedBackCreateDto dto)
         {
             var role = await _dataContext.Roles.FirstOrDefaultAsync(r => r.Id == dto.RoleId)
-                                                ?? throw new NotFoundException("Role", dto.RoleId);
+                                                ?? throw new NotFoundException(DomainModelNames.ROLE, dto.RoleId);
             var feedBack = _mapper.Map<FeedBack>(dto);
 
             feedBack.ImageNameInFileSystem =
@@ -63,10 +64,11 @@ namespace APICOFFE.Admin.Services.Services
         {
 
             var feedBack = await _dataContext.FeedBacks.
-                FirstOrDefaultAsync(fb => fb.Id == id) ?? throw new NotFoundException("feedback", id);
+                FirstOrDefaultAsync(fb => fb.Id == id) ?? throw new NotFoundException(DomainModelNames.FEED_BACK, id);
 
             var role = await _dataContext.Roles.AsNoTracking().
-                  FirstOrDefaultAsync(r => r.Id == dto.RoleId) ?? throw new NotFoundException("Role", dto.RoleId!);
+                  FirstOrDefaultAsync(r => r.Id == dto.RoleId) 
+                  ?? throw new NotFoundException(DomainModelNames.ROLE, dto.RoleId!);
 
 
 
@@ -96,7 +98,7 @@ namespace APICOFFE.Admin.Services.Services
         public async Task DeleteAsync(int id)
         {
             var feedBack = await _dataContext.FeedBacks
-                .FirstOrDefaultAsync(f => f.Id == id) ?? throw new NotFoundException("Feedback", id);
+                .FirstOrDefaultAsync(f => f.Id == id) ?? throw new NotFoundException(DomainModelNames.FEED_BACK, id);
 
             if (feedBack.ImageNameInFileSystem is not null)
                 await _fileService.DeleteAsync(feedBack.ImageNameInFileSystem, UploadDirectory.FEEDBACK);

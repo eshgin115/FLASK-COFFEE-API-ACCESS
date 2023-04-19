@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Admin.Dtos.Navbar;
 using APICOFFE.Admin.Services.Concretes;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -32,7 +33,7 @@ namespace APICOFFE.Admin.Services.Services
         public async Task<NavbarListItemDto> AddAsync(NavbarCreateDto dto)
         {
             if (_dataContext.Navbars.Any(n => n.Order == dto.Order))
-                throw new ExistException("order allready used");
+                throw new ValidationException("order allready used");
 
             var navbar = _mapper.Map<Navbar>(dto);
 
@@ -47,12 +48,12 @@ namespace APICOFFE.Admin.Services.Services
         public async Task<NavbarListItemDto> UpdateAsync(int id, NavbarUpdateDto dto)
         {
             var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == id)
-                ?? throw new NotFoundException("Navbar", id);
+                ?? throw new NotFoundException(DomainModelNames.NAVBAR, id);
 
 
 
             if (!_dataContext.Navbars.Any(n => n.Id == id) && !(dto.Order == navbar.Order))
-                throw new ExistException("This order used another navbar");
+                throw new ValidationException("This order used another navbar");
 
             _mapper.Map(dto, navbar);
 
@@ -64,7 +65,7 @@ namespace APICOFFE.Admin.Services.Services
         public async Task DeleteAsync(int id)
         {
             var navbar = await _dataContext.Navbars.FirstOrDefaultAsync(n => n.Id == id)
-                ?? throw new NotFoundException("Navbar", id);
+                ?? throw new NotFoundException(DomainModelNames.NAVBAR, id);
 
             _dataContext.Navbars.Remove(navbar);
 

@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.OurHistory;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
@@ -39,7 +40,7 @@ public class OurHistoryService : IOurHistoryService
     {
 
         var ourHistory = await _dataContext.OurHistory.SingleOrDefaultAsync()
-            ?? throw new NotFoundException("OurHistory");
+            ?? throw new NotFoundException(DomainModelNames.OUR_HISTORY);
 
         _mapper.Map(dto, ourHistory);
 

@@ -1,5 +1,6 @@
 ﻿using APICOFFE.Client.Dtos.Basket;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -39,7 +40,7 @@ public class BasketService : IBasketService
                 .Include(p => p.FoodSizes)!
                 .ThenInclude(p => p.Size)
                 .FirstOrDefaultAsync(p => p.Id == FoodId)
-                ?? throw new NotFoundException("Food", FoodId);
+                ?? throw new NotFoundException(DomainModelNames.FOOD, FoodId);
 
             await UpdateFoodBasketProductAsync(product, dto);
 
@@ -48,7 +49,7 @@ public class BasketService : IBasketService
         {
             var product = await _dataContext.Drinks
                .FirstOrDefaultAsync(p => p.Id == DrinkId)
-               ?? throw new NotFoundException("Drink", DrinkId);
+               ?? throw new NotFoundException(DomainModelNames.DRINK, DrinkId);
 
             var basketProduct = await _dataContext.BasketProducts
                 .FirstOrDefaultAsync(bp => bp.Basket!.UserId == _userService.CurrentUser.Id && bp.DrinkId == product.Id);
@@ -81,7 +82,7 @@ public class BasketService : IBasketService
         var product = await _dataContext.Drinks
             .Include(d => d.DrinkSizes)
            .FirstOrDefaultAsync(p => p.Id == drink.Id)
-           ?? throw new NotFoundException("Drink", drink.Id);
+           ?? throw new NotFoundException(DomainModelNames.DRINK, drink.Id);
 
         var basketProduct = await _dataContext.BasketProducts
             .FirstOrDefaultAsync(bp => bp.Basket!.UserId == _userService.CurrentUser.Id && bp.DrinkId == product.Id);
@@ -104,13 +105,13 @@ public class BasketService : IBasketService
         if (DrinkId is not null)
         {
             var basketProduct = await _dataContext.BasketProducts.FirstOrDefaultAsync(p => p.DrinkId == DrinkId)
-                ?? throw new NotFoundException("Drink", DrinkId);
+                ?? throw new NotFoundException(DomainModelNames.DRINK, DrinkId);
             _dataContext.BasketProducts.Remove(basketProduct);
         }
         else if (FoodId is not null)
         {
             var basketProduct = await _dataContext.BasketProducts.FirstOrDefaultAsync(p => p.FoodId == FoodId)
-                ?? throw new NotFoundException("Food", FoodId);
+                ?? throw new NotFoundException(DomainModelNames.FOOD, FoodId);
 
             _dataContext.BasketProducts.Remove(basketProduct);
 

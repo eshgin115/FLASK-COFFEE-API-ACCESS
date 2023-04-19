@@ -1,6 +1,7 @@
 ﻿using APICOFFE.Admin.Dtos.Drink;
 using APICOFFE.Admin.Services.Concretes;
 using APICOFFE.Contracts.File;
+using APICOFFE.Contracts.ModelName;
 using APICOFFE.Database.Models;
 using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
@@ -77,7 +78,7 @@ public class DrinkService : IDrinkService
                  .Include(p => p.DrinkTags)
                  .Include(p => p.DrinkSizes)
                  .FirstOrDefaultAsync(p => p.Id == id)
-                 ?? throw new NotFoundException("Drink", id);
+                 ?? throw new NotFoundException(DomainModelNames.DRINK, key: id);
 
         CheckingDrinkCategory(dto.DrinkCategoryId);
 
@@ -103,7 +104,7 @@ public class DrinkService : IDrinkService
         var drink = await _dataContext.Drinks
                //.Include(f => f.OrderProducts)
                .FirstOrDefaultAsync(f => f.Id == id)
-               ?? throw new NotFoundException("Drink", id);
+               ?? throw new NotFoundException(DomainModelNames.DRINK, id);
 
 
         _dataContext.Drinks.Remove(drink);
@@ -162,18 +163,18 @@ public class DrinkService : IDrinkService
     {
         foreach (var tagId in sagIds!)
             if (!_dataContext.Tags.Any(c => c.Id == tagId))
-                throw new NotFoundException("Tag", tagId);
+                throw new NotFoundException(DomainModelNames.TAG, tagId);
     }
     private void CheckingSize(List<int> sizeIds)
     {
         foreach (var sizeId in sizeIds!)
             if (!_dataContext.Sizes.Any(c => c.Id == sizeId))
-                throw new NotFoundException("Size", sizeId);
+                throw new NotFoundException(DomainModelNames.SIZE, sizeId);
     }
     private void CheckingDrinkCategory(int drinkCategoryId)
     {
         if (!_dataContext.DrinkCategories.Any(c => c.Id == drinkCategoryId))
-            throw new NotFoundException("DrinkCategory", drinkCategoryId);
+            throw new NotFoundException(DomainModelNames.DRINK_CATEGORY, drinkCategoryId);
     }
     private async Task<DrinkListItemDto> GetDrinkListItemDtoAsync(Drink drink)
     {
