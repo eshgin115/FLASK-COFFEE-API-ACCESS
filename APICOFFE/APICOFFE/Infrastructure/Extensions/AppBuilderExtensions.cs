@@ -2,6 +2,7 @@
 using APICOFFE.Admin.Hubs;
 using APICOFFE.Exceptions;
 using APICOFFE.Middlewares;
+using System.Globalization;
 
 namespace APICOFFE.Infrastructure.Extensions
 {
@@ -21,6 +22,21 @@ namespace APICOFFE.Infrastructure.Extensions
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+
+
+            var localizationOptions = new RequestLocalizationOptions();
+            var supportedCultures = new[]
+            {
+                 new CultureInfo ("en-Us"),
+                 new CultureInfo ("ru-RU"),
+            };
+            localizationOptions.SupportedCultures = supportedCultures;
+            localizationOptions.SupportedUICultures = supportedCultures;
+            localizationOptions.SetDefaultCulture("en-Us");
+            localizationOptions.ApplyCurrentCultureToResponseHeaders = true;
+            app.UseRequestLocalization(localizationOptions);
+
             app.MapGet("/not-found-example", () =>
             {
                 throw new NotFoundException("Information is not found in DB");

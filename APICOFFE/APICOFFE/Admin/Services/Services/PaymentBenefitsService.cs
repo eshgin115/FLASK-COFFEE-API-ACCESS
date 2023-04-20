@@ -37,7 +37,7 @@ public class PaymentBenefitsService : IPaymentBenefitsService
     public async Task<PaymentBenefitsListItemDto> AddAsync(PaymentBenefitsCreateDto dto)
     {
         if (_dataContext.PaymentBenefits.Any(p => p.Order == dto.Order))
-            throw new ExistException("Order Allready exist");
+            throw new ValidationException("Order Allready exist");
 
         var paymentBenefits = _mapper.Map<PaymentBenefits>(dto);
         paymentBenefits.ImageNameInFileSystem = await _fileService
@@ -54,19 +54,24 @@ public class PaymentBenefitsService : IPaymentBenefitsService
         var paymentBenefits = await _dataContext.PaymentBenefits.FirstOrDefaultAsync(b => b.Id == id)
              ?? throw new NotFoundException(DomainModelNames.PAYMENT_BENEFITS, id);
 
-        if (_dataContext.PaymentBenefits.Any(p => p.Order == dto.Order) && !(dto.Order == paymentBenefits.Order))
+        if (_dataContext.PaymentBenefits.Any
+            (p => p.Order == dto.Order) && !(dto.Order == paymentBenefits.Order))
             throw new ValidationException("Order Allready using");
 
         string imageFileNameInSystem = null!;
         if (dto.Image is not null)
         {
-            await _fileService.DeleteAsync(paymentBenefits.ImageNameInFileSystem, UploadDirectory.PAYMENT_BENEFITS);
-            imageFileNameInSystem = await _fileService.UploadAsync(dto.Image!, UploadDirectory.PAYMENT_BENEFITS);
+            await _fileService.DeleteAsync
+                (paymentBenefits.ImageNameInFileSystem, UploadDirectory.PAYMENT_BENEFITS);
+
+            imageFileNameInSystem = await _fileService.UploadAsync
+                (dto.Image!, UploadDirectory.PAYMENT_BENEFITS);
         }
 
         _mapper.Map(dto, paymentBenefits);
 
-        paymentBenefits.ImageNameInFileSystem = imageFileNameInSystem ?? paymentBenefits.ImageNameInFileSystem;
+        paymentBenefits.ImageNameInFileSystem =
+            imageFileNameInSystem ?? paymentBenefits.ImageNameInFileSystem;
 
         await _dataContext.SaveChangesAsync();
 
@@ -77,7 +82,8 @@ public class PaymentBenefitsService : IPaymentBenefitsService
         var paymentBenefits = await _dataContext.PaymentBenefits.FirstOrDefaultAsync(b => b.Id == id)
                                           ?? throw new NotFoundException(DomainModelNames.PAYMENT_BENEFITS, id);
 
-        await _fileService.DeleteAsync(paymentBenefits.ImageNameInFileSystem, UploadDirectory.PAYMENT_BENEFITS);
+        await _fileService.DeleteAsync
+            (paymentBenefits.ImageNameInFileSystem, UploadDirectory.PAYMENT_BENEFITS);
 
         _dataContext.PaymentBenefits.Remove(paymentBenefits);
 

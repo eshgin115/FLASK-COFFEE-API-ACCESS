@@ -21,7 +21,7 @@ public class AuthenticationService: IAuthenticationService
     {
         var user = await _dataContext.Users.SingleOrDefaultAsync(u => u.Email == dto.Email);
 
-        if (user is not null) throw new ExistException("Email already exists");
+        if (user is not null) throw new ValidationException("Email already exists");
 
         var hash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
         dto.Password = hash;

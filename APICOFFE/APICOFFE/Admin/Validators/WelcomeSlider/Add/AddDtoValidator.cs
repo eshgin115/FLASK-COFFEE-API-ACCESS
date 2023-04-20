@@ -17,8 +17,8 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
          .WithMessage("Name can't be empty")
          .MinimumLength(5)
          .WithMessage("Minimum length should be 5")
-         .MaximumLength(35)
-         .WithMessage("Maximum length should be 10");
+         .MaximumLength(100)
+         .WithMessage("Maximum length should be 100");
 
         RuleFor(avm => avm.Title)
          .Cascade(CascadeMode.Stop)
@@ -28,8 +28,8 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
          .WithMessage("Title can't be empty")
          .MinimumLength(5)
          .WithMessage("Minimum length should be 5")
-         .MaximumLength(35)
-         .WithMessage("Maximum length should be 10");
+         .MaximumLength(100)
+         .WithMessage("Maximum length should be 100");
 
         RuleFor(avm => avm.Subheading)
         .Cascade(CascadeMode.Stop)
@@ -40,7 +40,7 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
         .MinimumLength(5)
         .WithMessage("Minimum length should be 5")
         .MaximumLength(35)
-        .WithMessage("Maximum length should be 10");
+        .WithMessage("Maximum length should be 35");
 
         RuleFor(avm => avm.FirstHrefName)
         .Cascade(CascadeMode.Stop)
@@ -51,7 +51,7 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
         .MinimumLength(5)
         .WithMessage("Minimum length should be 5")
         .MaximumLength(35)
-        .WithMessage("Maximum length should be 10");
+        .WithMessage("Maximum length should be 35");
 
 
         RuleFor(avm => avm.FirstHrefURL)
@@ -63,7 +63,7 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
         .MinimumLength(5)
         .WithMessage("Minimum length should be 5")
         .MaximumLength(35)
-        .WithMessage("Maximum length should be 10");
+        .WithMessage("Maximum length should be 35");
 
 
         RuleFor(avm => avm.SecondHrefName)
@@ -75,7 +75,7 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
          .MinimumLength(5)
          .WithMessage("Minimum length should be 5")
          .MaximumLength(35)
-         .WithMessage("Maximum length should be 10");
+         .WithMessage("Maximum length should be 35");
 
 
         RuleFor(avm => avm.SecondHrefURL)
@@ -87,7 +87,7 @@ public class AddDtoValidator : AbstractValidator<WelcomeSliderCreateDto>
          .MinimumLength(5)
          .WithMessage("Minimum length should be 5")
          .MaximumLength(35)
-         .WithMessage("Maximum length should be 10");
+         .WithMessage("Maximum length should be 35");
 
 
         RuleFor(avm => avm.Page)

@@ -30,14 +30,15 @@ public class SubnavbarService : ISubnavbarService
     public async Task<SubnavbarListItemDto> AddAsync(SubnavbarCreateDto dto)
     {
         if (!_dataContext.Navbars.Any(n => n.Id == dto.NavbarId))
-                  throw new NotFoundException(DomainModelNames.NAVBAR, dto.NavbarId);
+            throw new NotFoundException(DomainModelNames.NAVBAR, dto.NavbarId);
 
         var subnavbar = _mapper.Map<Subnavbar>(dto);
         await _dataContext.Subnavbars.AddAsync(subnavbar);
 
         await _dataContext.SaveChangesAsync();
+        var subnavbarInDb = await _dataContext.Subnavbars.FirstAsync(s => s.Id == subnavbar.Id);
 
-       return _mapper.Map<SubnavbarListItemDto>(subnavbar);
+        return _mapper.Map<SubnavbarListItemDto>(subnavbarInDb);
     }
 
     public async Task<SubnavbarListItemDto> UpdateAsync(int id, SubnavbarUpdateDto dto)

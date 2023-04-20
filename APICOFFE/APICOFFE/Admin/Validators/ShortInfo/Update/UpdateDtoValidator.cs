@@ -15,8 +15,8 @@ public class UpdateDtoValidator : AbstractValidator<ShortInfoUpdateDto>
         .WithMessage("PlaceInfo can't be empty")
         .MinimumLength(5)
         .WithMessage("Minimum length should be 5")
-        .MaximumLength(35)
-        .WithMessage("Maximum length should be 35");
+        .MaximumLength(100)
+        .WithMessage("Maximum length should be 100");
 
         RuleFor(avm => avm.ShortеTitleStreet)
         .Cascade(CascadeMode.Stop)
@@ -26,8 +26,8 @@ public class UpdateDtoValidator : AbstractValidator<ShortInfoUpdateDto>
         .WithMessage("ShortеTitleStreet can't be empty")
         .MinimumLength(7)
         .WithMessage("Minimum length should be 7")
-        .MaximumLength(35)
-        .WithMessage("Maximum length should be 35");
+        .MaximumLength(100)
+        .WithMessage("Maximum length should be 10");
 
         RuleFor(avm => avm.TitleStreet)
         .Cascade(CascadeMode.Stop)
@@ -37,8 +37,8 @@ public class UpdateDtoValidator : AbstractValidator<ShortInfoUpdateDto>
         .WithMessage("TitleStreet can't be empty")
         .MinimumLength(10)
         .WithMessage("Minimum length should be 10")
-        .MaximumLength(35)
-        .WithMessage("Maximum length should be 35");
+        .MaximumLength(100)
+        .WithMessage("Maximum length should be 100");
 
        RuleFor(avm => avm.HoursOfWork)
         .Cascade(CascadeMode.Stop)
@@ -48,8 +48,8 @@ public class UpdateDtoValidator : AbstractValidator<ShortInfoUpdateDto>
         .WithMessage("HoursOfWork can't be empty")
         .MinimumLength(5)
         .WithMessage("Minimum length should be 5")
-        .MaximumLength(35)
-        .WithMessage("Maximum length should be 35");
+        .MaximumLength(100)
+        .WithMessage("Maximum length should be 100");
 
       RuleFor(avm => avm.WorkingHoursByDay)
        .Cascade(CascadeMode.Stop)
@@ -59,7 +59,7 @@ public class UpdateDtoValidator : AbstractValidator<ShortInfoUpdateDto>
        .WithMessage("WorkingHoursByDay can't be empty")
        .MinimumLength(5)
        .WithMessage("Minimum length should be 5")
-       .MaximumLength(35)
-       .WithMessage("Maximum length should be 35");
+       .MaximumLength(100)
+       .WithMessage("Maximum length should be 100");
     }
 }

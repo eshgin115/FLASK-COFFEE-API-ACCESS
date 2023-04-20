@@ -42,10 +42,21 @@ namespace APICOFFE.Admin.Services.Services
 
         public async Task<DiscoverMenuUpdateResponseDto> UpdateAsync(DiscoverMenuUpdateRequsetDto dto)
         {
-            var discoverMenu = await _dataContext.DiscoverMenu.Include(dm => dm.DiscoverMenuImages).SingleOrDefaultAsync();
+            var discoverMenu = await _dataContext.DiscoverMenu
+                .Include(dm => dm.DiscoverMenuImages)
+                .SingleOrDefaultAsync();
 
             _mapper.Map(dto, discoverMenu);
 
+            await UpdateDiscoverMenuImage(dto,discoverMenu!);
+
+            await _dataContext.SaveChangesAsync();
+
+            return _mapper.Map<DiscoverMenuUpdateResponseDto>(discoverMenu);
+        }
+
+        private async Task UpdateDiscoverMenuImage(DiscoverMenuUpdateRequsetDto dto,DiscoverMenu discoverMenu)
+        {
             foreach (var image in dto.Images!)
             {
                 foreach (var imageInDb in discoverMenu!.DiscoverMenuImages!)
@@ -56,10 +67,6 @@ namespace APICOFFE.Admin.Services.Services
                 await _dataContext.DiscoverMenuImages
                     .AddAsync(_mapper.Map<DiscoverMenuImage>((image, discoverMenu, imageNameInSystem)));
             }
-
-            await _dataContext.SaveChangesAsync();
-
-            return _mapper.Map<DiscoverMenuUpdateResponseDto>(discoverMenu);
         }
     }
 }

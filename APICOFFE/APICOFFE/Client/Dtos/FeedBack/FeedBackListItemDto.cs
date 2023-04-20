@@ -2,7 +2,6 @@
 
 public class FeedBackListItemDto
 {
-    public int Id { get; set; }
     public string ProfilePhotoUrl { get; set; } = default!;
     public string FullName { get; set; } = default!;
     public string RoleName { get; set; } = default!;

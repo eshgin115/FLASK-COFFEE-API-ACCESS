@@ -1,9 +1,9 @@
-﻿namespace APICOFFE.Client.Dtos.PaymentBenefits;
+﻿namespace APICOFFE.Client.Dtos.OurHistory;
 
-public class PaymentBenefitsListItemDto
+public class OurHistoryListItemDto
 {
+    public string Subheading { get; set; } = default!;
     public string Title { get; set; } = default!;
-    public int Order { get; set; } = default!;
     public string Content { get; set; } = default!;
     public string ImageURL { get; set; } = default!;
 }

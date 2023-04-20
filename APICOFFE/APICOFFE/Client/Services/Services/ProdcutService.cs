@@ -20,7 +20,7 @@ public class ProdcutService : IProdcutService
         _fileService = fileService;
         _mapper = mapper;
     }
-    public async Task<BestCoffeeListItemDto> BestCoffeeListAsync()
+    public async Task<List<BestCoffeeListItemDto>> BestCoffeeListAsync()
     {
         var bestCoffee = await _dataContext.Drinks
            .OrderByDescending(bc => bc.OrderProducts

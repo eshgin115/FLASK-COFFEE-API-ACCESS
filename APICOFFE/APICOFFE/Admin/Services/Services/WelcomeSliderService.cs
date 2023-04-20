@@ -39,8 +39,9 @@ public class WelcomeSliderService : IWelcomeSliderService
     }
     public async Task DeleteAsync(int id)
     {
-        var welcomeSlider = await _dataContext.WelcomeSliders.FirstOrDefaultAsync(b => b.Id == id)
-                                              ?? throw new NotFoundException(DomainModelNames.WELCOME_SLIDER, id);
+        var welcomeSlider = await _dataContext.WelcomeSliders.
+                                    FirstOrDefaultAsync(b => b.Id == id)
+                                    ?? throw new NotFoundException(DomainModelNames.WELCOME_SLIDER, id);
 
         await _fileService.DeleteAsync(welcomeSlider.ImageNameInFileSystem, UploadDirectory.WELCOME_SLIDER);
 

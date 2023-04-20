@@ -72,15 +72,7 @@ namespace APICOFFE.Admin.Services.Services
 
 
 
-            string feedBackPpImageNameInFileSystem = null!;
-            if (dto.ProfilePhoto is not null)
-            {
-                await _fileService.DeleteAsync
-                    (feedBack.ImageNameInFileSystem, UploadDirectory.FEEDBACK);
-
-                feedBackPpImageNameInFileSystem = await _fileService.UploadAsync
-                    (dto.ProfilePhoto, UploadDirectory.FEEDBACK);
-            }
+            var feedBackPpImageNameInFileSystem= await FeedBackImageUpdateAsync(dto, feedBack);
 
 
             _mapper.Map(dto, feedBack);
@@ -107,6 +99,17 @@ namespace APICOFFE.Admin.Services.Services
             await _dataContext.SaveChangesAsync();
         }
         #endregion
+        private async Task<string> FeedBackImageUpdateAsync(FeedBackUpdateRequestDto dto,FeedBack feedBack)
+        {
+            if (dto.ProfilePhoto is not null)
+            {
+                await _fileService.DeleteAsync
+                    (feedBack.ImageNameInFileSystem, UploadDirectory.FEEDBACK);
 
+                return  await _fileService.UploadAsync
+                    (dto.ProfilePhoto, UploadDirectory.FEEDBACK);
+            }
+            return default!;
+        }
     }
 }

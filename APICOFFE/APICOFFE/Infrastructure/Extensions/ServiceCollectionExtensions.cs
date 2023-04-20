@@ -10,6 +10,7 @@ using APICOFFE.Infrastructure.Configurations;
 using APICOFFE.Extensions;
 using APICOFFE.CustomExceptionHandler.Concretes;
 using APICOFFE.CustomExceptionHandler;
+using System.Globalization;
 
 namespace APICOFFE.Infrastructure.Extensions;
 
@@ -40,6 +41,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<UnauthorizedExceptionHandler>();
         services.AddScoped<ValidationExceptionHandler>();
         services.AddScoped<ExceptionHandlerCoordinator>();
+        services.AddLocalization();
+    
+
 
         services.AddUrlHelper();
         services.AddSignalR();
