@@ -15,8 +15,7 @@ namespace APICOFFE.Admin.Controllers;
 
 [ApiController]
 [Route("navbar")]
-
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 
 public class NavbarController : ControllerBase
 {
@@ -26,6 +25,13 @@ public class NavbarController : ControllerBase
     {
         _navbarService = navbarService;
     }
+    #region Urls
+    [HttpGet("urls")]
+    public async Task<IActionResult> GetUrlsForGetMethods()
+    {
+        return Ok( _navbarService.GetUrlsForGetMethods());
+    }
+    #endregion
     #region List
     [HttpGet("navbars")]
     public async Task<IActionResult> ListAsync()

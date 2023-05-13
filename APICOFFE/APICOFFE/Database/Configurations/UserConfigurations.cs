@@ -11,8 +11,6 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         builder
            .ToTable("Users");
 
-
-
         builder
            .HasOne(u => u.Role)
            .WithMany(r => r.Users)

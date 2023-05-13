@@ -11,7 +11,7 @@ namespace APICOFFE.Admin.Controllers;
 
 [ApiController]
 [Route("subnavbar")]
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 
 public class SubnavbarController : ControllerBase
 {

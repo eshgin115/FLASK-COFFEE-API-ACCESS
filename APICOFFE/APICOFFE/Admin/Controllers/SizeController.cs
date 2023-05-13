@@ -9,7 +9,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("size")]
 
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 
 public class SizeController : ControllerBase
 {

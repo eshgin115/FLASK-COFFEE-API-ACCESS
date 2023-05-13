@@ -6,23 +6,41 @@ using APICOFFE.Exceptions;
 using APICOFFE.Services.Concretes;
 using AutoMapper;
 using FLASK_COFFEE_API.Database;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace APICOFFE.Admin.Services.Services;
 
 public class NavbarService : INavbarService
 {
     private readonly DataContext _dataContext;
-    private readonly IFileService _fileService;
     private readonly IMapper _mapper;
     public NavbarService
         (DataContext dataContext,
-        IFileService fileService,
         IMapper mapper)
     {
         _dataContext = dataContext;
-        _fileService = fileService;
         _mapper = mapper;
+    }
+    public IEnumerable<string> GetUrlsForGetMethods()
+    {
+        var controllerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => typeof(ControllerBase).IsAssignableFrom(type));
+        var urls = new List<string>();
+
+        foreach (var controllerType in controllerTypes)
+        {
+            var methods = controllerType.GetMethods().Where(m => m.CustomAttributes.Any(attr => attr.AttributeType == typeof(HttpGetAttribute)));
+
+            foreach (var method in methods)
+            {
+                var url = $"/{controllerType.Name.Replace("Controller", "")}/{method.Name}";
+
+                urls.Add(url);
+            }
+        }
+
+        return urls;
     }
     public async Task<List<NavbarListItemDto>> ListAsync()
     {

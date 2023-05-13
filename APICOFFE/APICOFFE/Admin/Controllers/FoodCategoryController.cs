@@ -8,7 +8,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("food-category")]
 
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 public class FoodCategoryController : ControllerBase
 {
     private readonly IFoodCategoryService _foodCategoryService;

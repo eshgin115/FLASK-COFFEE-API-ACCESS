@@ -23,5 +23,5 @@ public class User : BaseEntity<int>, IAuditable
 
     public bool IsEmailConfirmed { get; set; }
     public List<Order>? Orders { get; set; }
-    //public List<Blog>? Blogs { get; set; }
+    public List<Blog>? Blogs { get; set; }
 }

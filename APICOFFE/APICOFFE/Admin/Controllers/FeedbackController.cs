@@ -15,7 +15,7 @@ namespace APICOFFE.Admin.Controllers;
 [ApiController]
 [Route("feedback")]
 
-//[Authorize(Roles = RoleNames.ADMIN)]
+[Authorize(Roles = RoleNames.ADMIN)]
 
 public class FeedbackController : ControllerBase
 {
